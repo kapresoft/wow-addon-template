@@ -1,4 +1,4 @@
-package-as: MacrobarPlus
+package-as: {{Addon}}
 # --------------------------
 license-output: LICENSE
 enable-nolib-creation: no

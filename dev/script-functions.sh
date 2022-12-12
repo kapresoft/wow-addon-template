@@ -8,7 +8,7 @@ Print "Sourcing" "${this_file}"
 # --------------------------------------------
 # vars
 # --------------------------------------------
-ADDON_NAME="MacrobarPlus"
+ADDON_NAME="{{Addon}}"
 proj_dir=ADDON_NAME
 pre_release_dir="$HOME/.wow-pre-release"
 dev_release_dir="$HOME/.wow-dev"

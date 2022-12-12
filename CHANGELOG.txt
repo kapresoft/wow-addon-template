@@ -1,10 +1,10 @@
-#### MacrobarPlus 0.0.1-alpha
+#### {{Addon}} 0.0.1-alpha
 
-[Release Notes](https://github.com/kapresoft/wow-addon-macrobar-plus/releases/tag/0.0.1-alpha) | [Full Changelog](https://github.com/kapresoft/wow-addon-macrobar-plus/compare/0.0.0-alpha...0.0.1-alpha) | [Release Page](https://github.com/kapresoft/wow-addon-macrobar-plus/releases)
+[Release Notes]({{GithubProjectUrl}}/releases/tag/0.0.1-alpha) | [Full Changelog]({{GithubProjectUrl}}/compare/0.0.0-alpha...0.0.1-alpha) | [Release Page]({{GithubProjectUrl}}/releases)
 
 - TBD
 
-### MacrobarPlus-0.0.0-alpha.zip
+### {{Addon}}-0.0.0-alpha.zip
 
 ```text
 MD5 <tbd>

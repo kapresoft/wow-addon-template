@@ -1,11 +1,11 @@
-## Interface: 30400
+## Interface: 100002
 ## Version: @project-version@
-## Title: Macrobar|cff1784d1Plus|r Retail
-## Notes: Macro actionbar addon for World of Warcraft
+## Title: {{Addon}}|cff1784d1 Retail|r
+## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled
-## SavedVariables: MBP_DB, MBP_LOG_LEVEL, MBP_DEBUG_MODE
-## SavedVariablesPerCharacter: MBP_CHARACTER_DB
+## SavedVariables: {{Addon-Short-Prefix}}_DB, {{Addon-Short-Prefix}}_LOG_LEVEL, {{Addon-Short-Prefix}}_DEBUG_MODE
+## SavedVariablesPerCharacter: {{Addon-Short-Prefix}}_CHARACTER_DB
 ## LoadManagers: AddonLoader
 
 ## X-LoadOn-Always: delayed
@@ -13,10 +13,10 @@
 ## X-Category: Combat
 ## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
 
-## X-Github-Repo: https://github.com/kapresoft/wow-addon-macrobar-plus
-## X-Github-Issues: https://github.com/kapresoft/wow-addon-macrobar-plus
-## X-CurseForge: https://www.curseforge.com/wow/addons/macrobarplus
-## X-Curse-Project-ID: 704035
+## X-Github-Repo: {{GithubProjectUrl}}
+## X-Github-Issues: {{GithubProjectUrl}}/issues
+## X-CurseForge: https://www.curseforge.com/wow/addons/{{curse-project-name}}
+## X-Curse-Project-ID: {{curse-project-id}}
 ## X-Github-Project-Author: @project-author@
 ## X-Github-Project-Hash: @project-hash@
 ## X-Github-Project-Last-Changed-Date: @project-date-iso@
@@ -26,4 +26,4 @@
 # /dump select(4, GetBuildInfo())
 
 Core\_Core.xml
-Wrath\_Wrath.xml
+Retail\_Retail.xml

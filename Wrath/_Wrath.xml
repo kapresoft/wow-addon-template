@@ -3,6 +3,6 @@
 ..\FrameXML\UI.xsd">
 
     <!--    Temp -->
-    <Script file="..\Core\MacrobarPlus.lua"/>
+    <Script file="..\Core\{{Addon}}.lua"/>
 
 </Ui>

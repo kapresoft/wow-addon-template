@@ -1,0 +1,29 @@
+## Interface: 20504
+## Version: @project-version@
+## Title: {{Addon}}|cff1784d1 TBC|r
+## Notes: {{Addon-Short-Description}}
+## Author: kapresoft@gmail.com
+## DefaultState: enabled
+## SavedVariables: {{Addon-Short-Prefix}}_DB, {{Addon-Short-Prefix}}_LOG_LEVEL, {{Addon-Short-Prefix}}_DEBUG_MODE
+## SavedVariablesPerCharacter: {{Addon-Short-Prefix}}_CHARACTER_DB
+## LoadManagers: AddonLoader
+
+## X-LoadOn-Always: delayed
+## X-Credits: kapresoft@gmail.com
+## X-Category: Combat
+## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
+
+## X-Github-Repo: {{GithubProjectUrl}}
+## X-Github-Issues: {{GithubProjectUrl}}/issues
+## X-CurseForge: https://www.curseforge.com/wow/addons/{{curse-project-name}}
+## X-Curse-Project-ID: {{curse-project-id}}
+## X-Github-Project-Author: @project-author@
+## X-Github-Project-Hash: @project-hash@
+## X-Github-Project-Last-Changed-Date: @project-date-iso@
+## X-Github-Project-Version: @project-version@
+
+# To get the Interface/Build Info
+# /dump select(4, GetBuildInfo())
+
+Core\_Core.xml
+TBC\_TBC.xml
