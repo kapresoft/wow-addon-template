@@ -1,0 +1,15 @@
+# See: https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#per-repository-settings
+
+# Auto detect text files and perform LF normalization
+#* text auto
+# Git will always convert line endings to CRLF on checkout.
+# You should use this for files that must keep CRLF endings, even on OSX or Linux.
+* text eol=lf
+*.tga binary
+
+# *.toc text eol=lf
+# *.lua text eol=lf
+# *.yaml text eol=lf
+# *.sh text eol=lf
+# *.xml text eol=lf
+# *.md text eol=lf

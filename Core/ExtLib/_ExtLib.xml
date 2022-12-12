@@ -1,0 +1,14 @@
+<!--suppress ALL -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- LibStub needs to be at the top -->
+    <Script file="WowAce\Ace3\LibStub\LibStub.lua"/>
+    <Include file="WowAce\_WowAce.xml"/>
+
+    <!-- TODO: Start sourcing at github in pkgmeta -->
+    <!--    <Include file='pprint\pprint.xml'/>-->
+
+    <Include file='Kapresoft-LibUtil\_Lib.xml'/>
+
+</Ui>

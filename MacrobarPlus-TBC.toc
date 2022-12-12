@@ -1,0 +1,29 @@
+## Interface: 20504
+## Version: @project-version@
+## Title: Macrobar|cff1784d1Plus|r Retail
+## Notes: Macro actionbar addon for World of Warcraft
+## Author: kapresoft@gmail.com
+## DefaultState: enabled
+## SavedVariables: MBP_DB, MBP_LOG_LEVEL, MBP_DEBUG_MODE
+## SavedVariablesPerCharacter: MBP_CHARACTER_DB
+## LoadManagers: AddonLoader
+
+## X-LoadOn-Always: delayed
+## X-Credits: kapresoft@gmail.com
+## X-Category: Combat
+## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
+
+## X-Github-Repo: https://github.com/kapresoft/wow-addon-macrobar-plus
+## X-Github-Issues: https://github.com/kapresoft/wow-addon-macrobar-plus
+## X-CurseForge: https://www.curseforge.com/wow/addons/macrobarplus
+## X-Curse-Project-ID: 704035
+## X-Github-Project-Author: @project-author@
+## X-Github-Project-Hash: @project-hash@
+## X-Github-Project-Last-Changed-Date: @project-date-iso@
+## X-Github-Project-Version: @project-version@
+
+# To get the Interface/Build Info
+# /dump select(4, GetBuildInfo())
+
+Core\_Core.xml
+TBC\_TBC.xml

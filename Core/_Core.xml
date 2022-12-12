@@ -1,0 +1,17 @@
+<!--suppress ALL -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- External Libs -->
+
+    <Include file='ExtLib\_ExtLib.xml'/>
+
+    <!-- Global Lib for the Addon   -->
+    <Include file='Global\_Global.xml'/>
+
+    <Script file="_Core.lua"/>
+    <Include file='Lib\_Lib.xml'/>
+
+    <!--    <Include file='AddonLib\_AddonLib.xml'/>-->
+
+</Ui>
