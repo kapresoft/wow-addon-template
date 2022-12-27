@@ -40,13 +40,18 @@ externals:
     tag: latest
 
 ignore:
-  - README.md
-  - package-addon.sh
+  - "*.sh"
+  - "*.md"
+  - "*.yaml"
+  - "*.yml"
   - dev
   - doc
-  - Core/Interface
+  - scripts
+  - Core/ExtLib/Kapresoft-LibUtil/External
+  - Core/ExtLib/Kapresoft-LibUtil/Kapresoft-LibUtil.toc
+  - Core/ExtLib/Kapresoft-LibUtil/LICENSE
   - Core/ExtLib/Kapresoft-LibUtil/dev
-  - Core/ExtLib/Kapresoft-LibUtil/sync-extlibs.sh
+  - Core/ExtLib/Kapresoft-LibUtil/doc
   - Core/ExtLib/WowAce/LibQTip/LibQTip-1.0/LibStub
   - Core/ExtLib/WowAce/LibQTip/LibQTip-1.0/LibQTip-1.0.toc
   - Core/ExtLib/WowAce/Ace3/tests
@@ -57,6 +62,4 @@ ignore:
   - Core/ExtLib/WowAce/Ace3/Ace3_Wrath.toc
   - Core/ExtLib/WowAce/Ace3/Bindings.xml
   - Core/ExtLib/WowAce/Ace3/Bindings.xml
-
-## Potentially helpful libraries
-## - https://www.wowace.com/projects/libactionbutton-1-0
+  - Dev.toc
