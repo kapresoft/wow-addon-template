@@ -10,8 +10,8 @@ on:
 env:
   addonName: AddonTemplate
   curseForgeProjectId: 782096
-  uploadBuildArtifacts: false
-  createDraftRelease: false
+  uploadBuildArtifacts: true
+  createDraftRelease: true
   artifact_retentionDays: 7
   releaseDir: ./.release
   refName: ${{ github.ref_name }}
