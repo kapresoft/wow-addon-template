@@ -1,61 +1,20 @@
 #!/usr/bin/env zsh
 
-IncludeBase() {
-  local fnn="script-functions.sh"
-  local fn="dev/${fnn}"
-  if [ -f "${fn}" ]; then
-    source "${fn}"
-  elif [ -f "${fnn}" ]; then
-    source "${fnn}"
-  else
-    echo "${fn} not found" && exit 1
-  fi
-}
-IncludeBase && Validate
+BUILD_DIR=./build
+SCRIPT_DIR=./dev
+RELEASE_SCRIPT=${SCRIPT_DIR}/release.sh
 
-# --------------------------------------------
-# Vars / Support Functions
-# --------------------------------------------
-
-# Use Common Release Dir
-RELEASE_DIR="${dev_release_dir}"
-
-Package() {
-  local arg1=$1
-  local rel_dir=$RELEASE_DIR
-  # -c Skip copying files into the package directory.
-  # -d Skip uploading.
-  # -e Skip checkout of external repositories.
-  # default: -cdzul
-  # for checking debug tags: -edzul
-  local rel_cmd="release-wow-addon -r ${RELEASE_DIR} -cdzul $*"
-
-  if [[ "$arg1" == "-h" ]]; then
-    echo "Usage: $0 [-o]"
-    echo "Options:  "
-    echo "  -o to keep existing release directory"
-    exit 0
-  fi
-
-  if [[ -d ${RELEASE_DIR} ]]; then
-    echo "$rel_dir dir exists"
-    rel_cmd="${rel_cmd}"
-  fi
-  echo "Executing: $rel_cmd"
-  eval "$rel_cmd"
+_Release() {
+    if [[ "$1" = "" ]]; then
+        echo "Usage: ./release <pkgmeta-file.yml>"
+        return 0
+    fi
+    local pkgmeta="$1"
+    local args="-duz -r ${BUILD_DIR} -m ${SCRIPT_DIR}/${pkgmeta}"
+    local cmd="${RELEASE_SCRIPT} ${args}"
+    echo "Executing: ${cmd}"
+    eval "${cmd}" && echo "Execution Complete: ${cmd}"
 }
 
-SyncExtLib() {
-  local src="${RELEASE_DIR}/${ADDON_NAME}/${EXTLIB}/WowAce/"
-  local dest="${EXTLIB}/WowAce/."
-  SyncDir "${src}" "${dest}"
-}
-
-SyncKapresoftLib() {
-  local src="${RELEASE_DIR}/${ADDON_NAME}/${EXTLIB}/Kapresoft-LibUtil"
-  local dest="${EXTLIB}/."
-  SyncDir "${src}" "${dest}"
-}
-
-#SyncExtLib && SyncKapresoftLib
-Package $* && SyncExtLib && SyncKapresoftLib
+#_Release pkgmeta-kapresoftlibs-interface.yaml
+_Release pkgmeta-dev.yaml

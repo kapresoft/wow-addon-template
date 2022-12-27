@@ -4,7 +4,7 @@
 
     <!-- LibStub needs to be at the top -->
     <Script file="WowAce\Ace3\LibStub\LibStub.lua"/>
-    <Include file="WowAce\_WowAce.xml"/>
+    <Include file="_ExtLib__WowAce.xml"/>
 
     <!-- TODO: Start sourcing at github in pkgmeta -->
     <!--    <Include file='pprint\pprint.xml'/>-->

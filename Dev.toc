@@ -1,0 +1,5 @@
+## Interface: 100002
+## Title: Dev
+## Author: kapresoft@gmail.com
+
+Core\_Core.xml

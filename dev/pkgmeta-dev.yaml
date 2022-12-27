@@ -1,0 +1,85 @@
+package-as: Dev
+# --------------------------
+manual-changelog:
+  filename: CHANGELOG.txt
+  markup-type: markdown
+
+# Declaring the following dependencies will make curse forge app install these 3rd-party
+# libraries. Need to figure out which is best (embedded or external).
+# in code, check for each of library global var before using
+#optional-dependencies:
+#  - ace3
+#  - libstub
+#  - callbackhandler
+#  - libsharedmedia-3-0
+
+# Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
+#ignore:
+#  - .git
+#  - .idea
+
+# Resources:
+#  - https://github.com/wowace-mirror
+#  - https://www.wowace.com/projects/ace3
+#  - SVN URLs are still the primary source recommendation
+externals:
+  Core/ExtLib/Kapresoft-LibUtil:
+    url: https://github.com/kapresoft/wow-lib-util
+    tag: latest
+  # Sourcing Ace3 addon directly from github
+  # LibStub is included in Ace3 add
+  Core/ExtLib/WowAce/Ace3:
+    url: https://repos.wowace.com/wow/ace3/trunk
+    tag: latest
+  Core/ExtLib/WowAce/LibQTip/LibQTip-1.0:
+    # https://www.wowace.com/projects/libqtip-1-0
+    url: https://repos.wowace.com/wow/libqtip-1-0
+    tag: latest
+
+ignore:
+  - "*.sh"
+  - "*.md"
+  - "*.yaml"
+  - "*.yml"
+  - dev
+  - doc
+  - scripts
+  - Core/SavedDungeonsAndRaids.lua
+  - Core/_Core.lua
+  - Core/_Core.xml
+  - Core/_ExtLib.xml
+  - Core/_ExtLib_WowAce.xml
+  - Core/AddonLib
+  - Core/Assets
+  - Core/Global
+  - Core/Interface
+  - Core/Lib
+  - Retail
+  - TBC
+  - Vanilla
+  - Wrath
+  - Bindings.xml
+  - Core/ExtLib/Kapresoft-LibUtil/External
+  - Core/ExtLib/Kapresoft-LibUtil/Kapresoft-LibUtil.toc
+  - Core/ExtLib/Kapresoft-LibUtil/LICENSE
+  - Core/ExtLib/Kapresoft-LibUtil/dev
+  - Core/ExtLib/Kapresoft-LibUtil/doc
+  - Core/ExtLib/WowAce/LibQTip/LibQTip-1.0/LibStub
+  - Core/ExtLib/WowAce/LibQTip/LibQTip-1.0/LibQTip-1.0.toc
+  - Core/ExtLib/WowAce/Ace3/tests
+  - Core/ExtLib/WowAce/Ace3/Ace3.lua
+  - Core/ExtLib/WowAce/Ace3/Ace3.toc
+  - Core/ExtLib/WowAce/Ace3/Ace3_TBC.toc
+  - Core/ExtLib/WowAce/Ace3/Ace3_Vanilla.toc
+  - Core/ExtLib/WowAce/Ace3/Ace3_Wrath.toc
+  - Core/ExtLib/WowAce/Ace3/Bindings.xml
+  - Core/ExtLib/WowAce/Ace3/Bindings.xml
+  - "*.toc"
+
+## Potentially helpful libraries
+## - https://www.wowace.com/projects/libactionbutton-1-0
+
+move-folders:
+  Dev/Core/ExtLib/Kapresoft-LibUtil: ../Core/ExtLib/Kapresoft-LibUtil
+  Dev/Core/ExtLib/WowAce/Ace3: ../Core/ExtLib/WowAce/Ace3
+  Dev/Core/ExtLib/WowAce/LibQTip/LibQTip-1.0: ../Core/ExtLib/WowAce/LibQTip/LibQTip-1.0
