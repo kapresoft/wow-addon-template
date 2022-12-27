@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  addonName: Addon Template
+  addonName: AddonTemplate
   curseForgeProjectId: 782096
   releaseDir: ./.release
 
