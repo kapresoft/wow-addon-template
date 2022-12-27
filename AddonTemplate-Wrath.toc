@@ -1,6 +1,6 @@
 ## Interface: 30400
 ## Version: @project-version@
-## Title: {{Addon}}|cff1784d1 WOTLK|r
+## Title: AddonTemplate|cff1784d1 WOTLK|r
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled

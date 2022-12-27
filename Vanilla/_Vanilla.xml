@@ -3,6 +3,6 @@
 ..\FrameXML\UI.xsd">
 
     <!--    Temp -->
-    <Script file="..\Core\{{Addon}}.lua"/>
+    <Script file="..\Core\AddonTemplate.lua"/>
 
 </Ui>

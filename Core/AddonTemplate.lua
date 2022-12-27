@@ -13,7 +13,7 @@ local Table = O.Table
 local toStringSorted = Table.toStringSorted
 local pformat = O.pformat
 
----@class SavedDungeonsAndRaid
+---@class AddonTemplate
 local A = LibStub("AceAddon-3.0"):NewAddon(ns.name, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 local mt = getmetatable(A) or {}
 mt.__tostring = ns.ToStringFunction()
@@ -26,12 +26,12 @@ ns['addon'] = A
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o SavedDungeonsAndRaid
+---@param o AddonTemplate
 local function Methods(o)
 
 end
 
----@param o SavedDungeonsAndRaid
+---@param o AddonTemplate
 local function RegisterEvents(o)
 
 end

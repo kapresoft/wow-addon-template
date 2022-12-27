@@ -1,6 +1,6 @@
 ## Template Variables
 
-#### {{Addon}}
+#### AddonTemplate
 >The addon name. Example:  ActionbarPlus
 
 #### {{Addon-Short-Description}}

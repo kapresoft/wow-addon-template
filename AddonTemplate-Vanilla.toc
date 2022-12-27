@@ -1,6 +1,6 @@
 ## Interface: 11403
 ## Version: @project-version@
-## Title: {{Addon}}|cff1784d1 Retail|r
+## Title: AddonTemplate|cff1784d1 Retail|r
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled

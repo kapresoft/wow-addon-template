@@ -1,6 +1,6 @@
 ## Interface: 20504
 ## Version: @project-version@
-## Title: {{Addon}}|cff1784d1 TBC|r
+## Title: AddonTemplate|cff1784d1 TBC|r
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled

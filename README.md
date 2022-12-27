@@ -1,5 +1,5 @@
 # Status: Experimental Mode
-## {{Addon}} : {{Addon-Short-Description}}
+## AddonTemplate : {{Addon-Short-Description}}
 
 ### Description
 {{Addon-Description}}
