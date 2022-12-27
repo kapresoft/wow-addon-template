@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 env:
-  addonName: ActionbarPlus
-  curseForgeProjectId: 566626
+  addonName: Addon Template
+  curseForgeProjectId: 782096
   uploadBuildArtifacts: false
   createDraftRelease: false
   artifact_retentionDays: 7
