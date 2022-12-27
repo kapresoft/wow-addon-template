@@ -1,0 +1,18 @@
+# see https://github.com/marketplace/actions/release-drafter
+# For RESOLVED_VERSION
+version-template: '$MAJOR.$MINOR.$PATCH'
+#
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+#
+template: |
+  ### ActionbarPlus $RESOLVED_VERSION
+  [Release Notes](https://github.com/kapresoft/$REPOSITORY/releases/tag/$RESOLVED_VERSION) | [Full Changelog](https://github.com/kapresoft/$REPOSITORY/compare/$PREVIOUS_TAG...$RESOLVED_VERSION) | [Release Page](https://github.com/kapresoft/$REPOSITORY/releases)
+  
+  #### What’s Changed
+
+  $CHANGES
+  
+  ### Contributors:
+  $CONTRIBUTORS
+   

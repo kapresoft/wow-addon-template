@@ -1,0 +1,71 @@
+name: Branch Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  addonName: ActionbarPlus
+  curseForgeProjectId: 566626
+  releaseDir: ./.release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      ## ------------------------------------------------ ##
+      ## See: https://github.com/actions/github-script
+      - name: "Set Env Variable: GITHUB_SHA_SHORT"
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const sha = context.sha.substring(0, 7)
+            core.exportVariable('GITHUB_SHA_SHORT', sha)
+      ## ------------------------------------------------ ##
+      - name: "Set ENV Variable: buildBasePath & buildArtifactFilename"
+        run: |
+          echo buildBasePath="${releaseDir}/${addonName}" >> $GITHUB_ENV
+          echo buildArtifactFilename="${addonName}-${GITHUB_SHA_SHORT}.zip"  >> $GITHUB_ENV
+      ## ------------------------------------------------ ##
+      - name: "Set ENV Variable: buildArtifact"
+        run: |
+          echo buildArtifact="${releaseDir}/${buildArtifactFilename}" >> $GITHUB_ENV
+      ## ------------------------------------------------ ##
+      - name: Print Environment Variables
+        run: |
+          echo HOME=${HOME}
+          echo addonName=${addonName}
+          echo releaseDir=${releaseDir}
+          echo buildBasePath=${buildBasePath}
+          echo buildArtifactFilename=${buildArtifactFilename}
+          echo buildArtifact=${buildArtifact}
+          echo "------------------------"
+          echo "All ENV Vars:"
+          echo "$(env|sort)"
+      ## ------------------------------------------------ ##
+      ## Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      ## ------------------------------------------------ ##
+      - name: "Verify Package Meta File Exists: ./pkgmeta.yaml"
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "pkgmeta.yaml"
+          fail: true
+      ## ------------------------------------------------ ##
+      ## see: https://github.com/marketplace/actions/wow-packager
+      - uses: BigWigsMods/packager@v2
+        with:
+          args: -du -r ${releaseDir} -p ${curseForgeProjectId}
+      ## ------------------------------------------------ ##
+      - name: "Verify Build Artifact Exists: ${{ env.buildArtifact }}"
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "${{ env.buildArtifact }}"
+          fail: true
+# end
