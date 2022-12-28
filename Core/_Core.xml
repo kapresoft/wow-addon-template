@@ -12,6 +12,4 @@
     <Script file="_Core.lua"/>
     <Include file='Lib\_Lib.xml'/>
 
-    <!--    <Include file='AddonLib\_AddonLib.xml'/>-->
-
 </Ui>

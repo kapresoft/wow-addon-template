@@ -4,8 +4,8 @@
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled
-## SavedVariables: {{Addon-Short-Prefix}}_DB, {{Addon-Short-Prefix}}_LOG_LEVEL, {{Addon-Short-Prefix}}_DEBUG_MODE
-## SavedVariablesPerCharacter: {{Addon-Short-Prefix}}_CHARACTER_DB
+## SavedVariables: ADT_DB, ADT_LOG_LEVEL, ADT_DEBUG_MODE
+## SavedVariablesPerCharacter: ADT_CHARACTER_DB
 ## LoadManagers: AddonLoader
 
 ## X-LoadOn-Always: delayed
