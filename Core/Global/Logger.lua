@@ -6,33 +6,25 @@ local unpack = unpack
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
+--- @type Namespace
+local _, ns = ...
 local LibStub = LibStub
 local C = LibStub('AceConsole-3.0')
 
-local ns = ADT_Namespace(...)
-local O, _, M = ns:LibPack()
-local sformat, pformat = string.format, ns.pformat
-local tableUnpack = O.Table.tableUnpack
+local sformat, pformat, M = ns.sformat, ns.pformat, ns.M
+local tableUnpack = ns:KO().Table.tableUnpack
 
 ---Colors are in hex
 local consoleColors = {
-    primary   = '586780',
+    primary   = '93b3e6',
     secondary = 'fbeb2d',
     tertiary = 'ffffff'
 }
 
 --[[-----------------------------------------------------------------------------
-Interface
--------------------------------------------------------------------------------]]
----@class LoggerInterface
-local LoggerInterface = {}
----@param format string The string format. Example: logger:log('hello: %s', 'world')
-function LoggerInterface:log(format, ...)  end
-
---[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
----@class Logger
+--- @type Logger
 local L = LibStub:NewLibrary(ns.LibName(M.Logger), 1)
 ns:Register(M.Logger, L)
 
@@ -40,7 +32,7 @@ ns:Register(M.Logger, L)
 Support Functions
 -------------------------------------------------------------------------------]]
 local function formatColor(color, text) return sformat('|cfd%s%s|r', color, tostring(text)) end
----@param prefix string
+--- @param prefix string
 local function getFormattedLogPrefix(prefix)
     local bracketsLeft = formatColor(consoleColors.tertiary, '{{')
     local bracketsRight = formatColor(consoleColors.tertiary, '}}')
@@ -55,7 +47,7 @@ end
 --[[-----------------------------------------------------------------------------
 LogUtil
 -------------------------------------------------------------------------------]]
----@class LogUtil
+--- @class LogUtil
 local _U = { }
 
 function _U.getSortedKeys(t)
@@ -66,7 +58,7 @@ function _U.getSortedKeys(t)
     return keys
 end
 
----@param t table The table to format
+--- @param t table The table to format
 function _U.format(t, optionalAddNewline)
     local addNewLine = optionalAddNewline or false
     if type(t) ~= 'table' then return tostring(t) end
@@ -91,7 +83,7 @@ end
 function _U.t_pack(...) return { len = select("#", ...), ... } end
 
 ---Fail-safe unpack
----@param t table The table to unpack
+--- @param t table The table to unpack
 function _U.t_unpack(t)
     if type(unpack) == 'function' then return unpack(t) end
     return tableUnpack(t)
@@ -112,7 +104,7 @@ function _U.slice(t, startIndex, stopIndex)
     return new
 end
 
----@param level number The level configured by the log function call
+--- @param level number The level configured by the log function call
 local function ShouldLog(level)
     assert(type(level) == 'number', 'Level should be a number between 1 and 100')
     local function GetLogLevel() return ADT_LOG_LEVEL end
@@ -129,8 +121,8 @@ local DEFAULT_FORMATTER = {
 }
 local TABLE_FORMATTER = { format = function(o) return _U.format(o, false) end }
 
----@param obj table
----@param optionalLogName string The optional logger name
+--- @param obj table
+--- @param optionalLogName string The optional logger name
 local function _EmbedLogger(obj, optionalLogName)
     local prefix = ''
 
@@ -211,7 +203,7 @@ local function _EmbedLogger(obj, optionalLogName)
     end
 
     ---Convert arguments to string
-    ---@param optionalStringFormatSafe boolean Set to true to escape '%' characters used by string.forma
+    --- @param optionalStringFormatSafe boolean Set to true to escape '%' characters used by string.forma
     function obj:ArgToString(any, optionalStringFormatSafe)
         local text
         if type(any) == 'table' then text = self:format(any) else text = tostring(any) end
@@ -224,15 +216,15 @@ local function _EmbedLogger(obj, optionalLogName)
 end
 
 ---Embed on a generic object
----@param obj table
----@param optionalLogName string The optional log name
+--- @param obj table
+--- @param optionalLogName string The optional log name
 function L:Embed(obj, optionalLogName)
     C:Embed(obj)
     _EmbedLogger(obj, optionalLogName)
     return obj
 end
 
----@return LoggerInterface
+--- @return Logger
 function L:NewLogger(optionalLogName)
     local o = {}
     C:Embed(o)

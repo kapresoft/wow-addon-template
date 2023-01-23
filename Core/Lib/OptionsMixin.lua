@@ -6,33 +6,34 @@ local sformat = string.format
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local ns = ADT_Namespace(...)
-local O, LibStub, M = ns.O, ns.LibStub, ns.M
+--- @type Namespace
+local _, ns = ...
+local O, LibStub, M, KO = ns.O, ns.LibStub, ns.M, ns:KO()
+local pformat = ns.pformat
 
-local GC, ACE = O.GlobalConstants, O.AceLibrary
+local ACE = O.AceLibrary
 local AceConfig, AceConfigDialog = ACE.AceConfig, ACE.AceConfigDialog
-local IsEmptyTable = O.LU.Table.isEmpty
-
+local IsEmptyTable = KO.Table.isEmpty
 
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
----@class OptionsMixin : BaseLibraryObject
+--- @class OptionsMixin : BaseLibraryObject
 local L = LibStub:NewLibrary(M.OptionsMixin)
 local p = L.logger;
 
----@param addon AddonTemplate
+--- @param addon AddonTemplate
 function L:Init(addon)
     self.addon = addon
 end
 
----@param o OptionsMixin
+--- @param o OptionsMixin
 local function Methods(o)
 
     --- Usage:  local instance = OptionsMixin:New(addon)
     --- @param addon AddonTemplate
     --- @return OptionsMixin
-    function o:New(addon) return K_CreateAndInitFromMixin(o, addon) end
+    function o:New(addon) return ns:K():CreateAndInitFromMixin(o, addon) end
 
     function o:CreateOptions()
         local options = {

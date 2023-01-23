@@ -6,15 +6,19 @@ local sformat, unpack = string.format, unpack
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
+--- @type Namespace
+local _, ns = ...
+local O, M = ns.O, ns.M
+
 local LibStub = LibStub
-local ns = ADT_Namespace(...)
-local O, LibStubLocal, M = ns:LibPack()
-local GC, ACE, Table, String = O.GlobalConstants, O.AceLibrary, O.LU.Table, O.LU.String
+local KO = ns:KO()
+
+local GC, ACE, Table, String = O.GlobalConstants, O.AceLibrary, KO.Table, KO.String
 local AceConfigDialog = ACE.AceConfigDialog
 local toStringSorted, pformat = Table.toStringSorted, O.pformat
 local IsBlank, IsAnyOf, IsEmptyTable = String.IsBlank, String.IsAnyOf, Table.isEmpty
 
----@class AddonTemplate
+--- @class AddonTemplate
 local A = LibStub("AceAddon-3.0"):NewAddon(ns.name, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 local mt = getmetatable(A) or {}
 mt.__tostring = ns.ToStringFunction()
@@ -27,7 +31,7 @@ ns['addon'] = A
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o AddonTemplate
+--- @param o AddonTemplate
 local function Methods(o)
     O.MainEventHandler:Init(o)
 
@@ -51,7 +55,7 @@ local function Methods(o)
         self:RegisterChatCommand(GC.C.CONSOLE_COMMAND_NAME, "SlashCommands")
     end
 
-    ---@param spaceSeparatedArgs string
+    --- @param spaceSeparatedArgs string
     function o:SlashCommands(spaceSeparatedArgs)
         local args = Table.parseSpaceSeparatedVar(spaceSeparatedArgs)
         if IsEmptyTable(args) then
@@ -99,7 +103,7 @@ local function Methods(o)
     function o:BINDING_ADT_OPTIONS_DLG() self:OpenConfig() end
 end
 
----@param o AddonTemplate
+--- @param o AddonTemplate
 local function RegisterEvents(o)
 
 end
@@ -113,9 +117,7 @@ local function Constructor()
     p:log('Namespace Object keys: %s', ns:ToStringObjectKeys())
 
     ADT = A
+
 end
 
 Constructor()
-
-
-

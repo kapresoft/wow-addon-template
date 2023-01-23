@@ -1,13 +1,16 @@
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local O, LibStub, M = ADT_LibPack(...)
+--- @type Namespace
+local _, ns = ...
+local O, LibStub, M, KO = ns.O, ns.LibStub, ns.M, ns:KO()
 local GC, AceDB = O.GlobalConstants, O.AceLibrary.AceDB
-local IsEmptyTable = O.LU.Table.isEmpty
+local IsEmptyTable = KO.Table.isEmpty
+
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
----@class AceDbInitializerMixin : BaseLibraryObject
+--- @class AceDbInitializerMixin : BaseLibraryObject
 local L = LibStub:NewLibrary(M.AceDbInitializerMixin)
 local p = L.logger;
 
@@ -23,7 +26,7 @@ end
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param a AddonTemplate
+--- @param a AddonTemplate
 local function AddonCallbackMethods(a)
     function a:OnProfileChanged()
         p:log('OnProfileChanged called...')
@@ -36,15 +39,15 @@ local function AddonCallbackMethods(a)
     end
 end
 
----@param o AceDbInitializerMixin
+--- @param o AceDbInitializerMixin
 local function Methods(o)
 
     --- Usage:  local instance = AceDbInitializerMixin:New(addon)
     --- @param addon AddonTemplate
     --- @return AceDbInitializerMixin
-    function o:New(addon) return K_CreateAndInitFromMixin(o, addon) end
+    function o:New(addon) return ns:K():CreateAndInitFromMixin(o, addon) end
 
-    ---@return AceDB
+    --- @return AceDB
     function o:GetDB() return self.addon.db end
 
     function o:InitDb()

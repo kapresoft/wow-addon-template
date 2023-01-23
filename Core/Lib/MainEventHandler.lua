@@ -12,34 +12,36 @@ local RegisterFrameForEvents, RegisterFrameForUnitEvents = FrameUtil.RegisterFra
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local ns = ADT_Namespace(...)
-local O, LibStub, M = ns:LibPack()
-local AceEvent, GC = O.AceLibrary.AceEvent, O.GlobalConstants
+--- @type Namespace
+local _, ns = ...
+local O, LibStub, M, GC = ns.O, ns.LibStub, ns.M, ns.O.GlobalConstants
+local AceEvent = O.AceLibrary.AceEvent
 local E, MSG = GC.E, GC.M
+
 --TODO next localize
 local commandTextFormat = 'Type %s on the console for available commands.'
 
 --[[-----------------------------------------------------------------------------
 Interface
 -------------------------------------------------------------------------------]]
----@class MainEventHandlerFrame : _Frame
+--- @class MainEventHandlerFrame : _Frame
 local MainEventHandlerFrame = {
-    ---@type MainEventContext
+    --- @type MainEventContext
     ctx = {}
 }
 
----@class MainEventContext
+--- @class MainEventContext
 local EventFrameWidgetInterface = {
-    ---@type MainEventHandlerFrame
+    --- @type MainEventHandlerFrame
     frame = {},
-    ---@type AddonTemplate
+    --- @type AddonTemplate
     addon = {},
 }
 
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
----@class MainEventHandler : BaseLibraryObject
+--- @class MainEventHandler : BaseLibraryObject
 local L = LibStub:NewLibrary(M.MainEventHandler, 1)
 AceEvent:Embed(L)
 local p = L.logger
@@ -52,14 +54,13 @@ Support Functions
 ---```Usage:
 ---AceEvent:RegisterMessage(MSG.OnAddonReady, function(evt, ...) end
 ---```
----@param addon AddonTemplate
+--- @param addon AddonTemplate
 local function SendAddonReadyMessage(addon)
     L:SendMessage(MSG.OnAddonReady, addon)
 end
 
----@param f MainEventHandlerFrame
+--- @param f MainEventHandlerFrame
 local function OnPlayerEnteringWorld(f, event, ...)
-    --p:log('[%s] called...', event)
     local version = GC:GetAddonInfo()
     local addon = f.ctx.addon
     addon.logger:log('%s Initialized. %s', version, sformat(commandTextFormat, GC.C.COMMAND, GC.C.HELP_COMMAND))
@@ -70,7 +71,7 @@ end
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o MainEventHandler
+--- @param o MainEventHandler
 local function InstanceMethods(o)
 
     ---Init Method: Called by Mixin
@@ -78,7 +79,7 @@ local function InstanceMethods(o)
     ---```
     ---local newInstance = Mixin:MixinAndInit(O.MainEventHandlerMixin, addon)
     ---```
-    ---@param addon AddonTemplate
+    --- @param addon AddonTemplate
     function o:Init(addon)
         self.addon = addon
         self:RegisterMessage(MSG.OnAfterInitialize, function(evt, ...) self:OnAfterInitialize() end)
@@ -99,8 +100,8 @@ local function InstanceMethods(o)
         RegisterFrameForEvents(f, { E.PLAYER_ENTERING_WORLD })
     end
 
-    ---@param eventFrame _Frame
-    ---@return MainEventHandlerFrame
+    --- @param eventFrame _Frame
+    --- @return MainEventHandlerFrame
     function o:CreateWidget(eventFrame)
         local widget = {
             frame = eventFrame,
@@ -109,9 +110,9 @@ local function InstanceMethods(o)
         return widget
     end
 
-    ---@return MainEventHandlerFrame
+    --- @return MainEventHandlerFrame
     function o:CreateEventFrame()
-        ---@type MainEventHandlerFrame
+        --- @type MainEventHandlerFrame
         local f = CreateFrame("Frame", nil, self.addon.frame)
         f.ctx = self:CreateWidget(f)
         return f
