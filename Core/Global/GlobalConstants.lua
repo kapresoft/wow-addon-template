@@ -60,36 +60,6 @@ local function InitGlobalVars(varPrefix)
 end
 InitGlobalVars(globalVarPrefix)
 
--- todo next: replace with common LocalLibStub
--- @class LocalLibStub : LibStub
-local S = {}
-
---- @param moduleName string
---- @param optionalMinorVersion number
-function S:NewLibrary(moduleName, optionalMinorVersion)
-    assert('string' == type(moduleName),
-            "Module name is required for GlobalConstants::NewLibrary(moduleName)")
-    --- use Ace3 LibStub here
-    --- @type BaseLibraryObject
-    local o = LibStub:NewLibrary(LibName(moduleName), optionalMinorVersion or 1)
-    assert(o, sformat("Module not found: %s", tostring(moduleName)))
-    o.mt = getmetatable(o) or {}
-    o.mt.__tostring = ns:ToStringFunction(moduleName)
-    setmetatable(o, o.mt)
-    ns:Register(moduleName, o)
-    --- @type Logger
-    local loggerLib = LibStub(LibName(ns.M.Logger), 1)
-    o.logger = loggerLib:NewLogger(moduleName)
-    return o
-end
-
---- @param moduleName string
---- @param optionalMinorVersion number
-function S:GetLibrary(moduleName, optionalMinorVersion) return LibStub(LibName(moduleName), optionalMinorVersion or 1) end
-
-S.mt = { __call = function (_, ...) return S:GetLibrary(...) end }
-setmetatable(S, S.mt)
-
 --[[-----------------------------------------------------------------------------
 GlobalConstants
 -------------------------------------------------------------------------------]]
