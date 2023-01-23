@@ -61,7 +61,7 @@ end
 InitGlobalVars(globalVarPrefix)
 
 -- todo next: replace with common LocalLibStub
---- @class LocalLibStub : LibStub
+-- @class LocalLibStub : LibStub
 local S = {}
 
 --- @param moduleName string
@@ -74,7 +74,7 @@ function S:NewLibrary(moduleName, optionalMinorVersion)
     local o = LibStub:NewLibrary(LibName(moduleName), optionalMinorVersion or 1)
     assert(o, sformat("Module not found: %s", tostring(moduleName)))
     o.mt = getmetatable(o) or {}
-    o.mt.__tostring = ns.ToStringFunction(moduleName)
+    o.mt.__tostring = ns:ToStringFunction(moduleName)
     setmetatable(o, o.mt)
     ns:Register(moduleName, o)
     --- @type Logger
@@ -194,12 +194,9 @@ local function Methods(o)
         )
     end
 
+    o.LibName = LibName
+    o.ToStringFunction = ToStringFunction
 end
 
 GlobalConstantProperties(L)
 Methods(L)
-
-ns.LibName = LibName
-ns.ToStringFunction = ToStringFunction
---- @type LocalLibStub
-ns.LibStub = S

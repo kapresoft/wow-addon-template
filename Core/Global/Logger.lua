@@ -25,7 +25,7 @@ local consoleColors = {
 New Instance
 -------------------------------------------------------------------------------]]
 --- @type Logger
-local L = LibStub:NewLibrary(ns.LibName(M.Logger), 1)
+local L = LibStub:NewLibrary(ns:LibName(M.Logger), 1)
 ns:Register(M.Logger, L)
 
 --[[-----------------------------------------------------------------------------

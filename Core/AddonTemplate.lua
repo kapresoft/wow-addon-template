@@ -21,7 +21,7 @@ local IsBlank, IsAnyOf, IsEmptyTable = String.IsBlank, String.IsAnyOf, Table.isE
 --- @class AddonTemplate
 local A = LibStub("AceAddon-3.0"):NewAddon(ns.name, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 local mt = getmetatable(A) or {}
-mt.__tostring = ns.ToStringFunction()
+mt.__tostring = ns:ToStringFunction()
 local p = O.Logger:NewLogger()
 A.logger = p
 
