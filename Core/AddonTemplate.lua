@@ -65,13 +65,17 @@ local function Methods(o)
             self:SlashCommand_OpenConfig(); return
         end
         if IsAnyOf('info', unpack(args)) then
-            self:SlashCommand_InfoHandler(); return
+            self:SlashCommand_Info_Handler(); return
         end
         if IsAnyOf('list', unpack(args)) then
             self:SlashCommand_ListSavedInstances(); return
         end
         -- Otherwise, show help
         self:SlashCommand_Help_Handler()
+    end
+
+    function o:SlashCommand_Info_Handler()
+        p:log(GC:GetAddonInfoFormatted())
     end
 
     function o:SlashCommand_Help_Handler()
