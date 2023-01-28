@@ -1,4 +1,11 @@
 --[[-----------------------------------------------------------------------------
+Blizzard Vars
+-------------------------------------------------------------------------------]]
+--- @see BlizzardInterfaceCode:Interface/SharedXML/Mixin.lua
+--- @class _Mixin
+local Mixin = Mixin
+
+--[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
 --- @type Namespace
@@ -66,7 +73,6 @@ end
 
 ---@param o Namespace
 local function NameSpacePropertiesAndMethods(o)
-    --- @see BlizzardInterfaceCode:Interface/SharedXML/Mixin.lua
     Mixin(o, Kapresoft_LibUtil_Mixins)
 
     local getSortedKeys = o:KO().Table.getSortedKeys

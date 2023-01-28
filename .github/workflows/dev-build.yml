@@ -22,7 +22,7 @@ jobs:
       ## ------------------------------------------------ ##
       ## See: https://github.com/actions/github-script
       - name: "Set Env Variable: GITHUB_SHA_SHORT"
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           script: |
             const sha = context.sha.substring(0, 7)
