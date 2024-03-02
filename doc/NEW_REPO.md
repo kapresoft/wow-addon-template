@@ -19,3 +19,14 @@
 
 ### See Also
 - [Github: Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+
+
+### Search and Replace
+
+See scripts in ./dev/ folder and modify content, execute in order
+Update with new Project Name and Project ID (Curse Forge)
+
+- 1-rename.sh
+- 2-replace-util-files.sh
+- 3-replace-projectid.sh
+- 4-replace-lua-files.sh
