@@ -159,7 +159,7 @@ local function InitLocalLibStub(o)
     --- @class LocalLibStub : Kapresoft_LibUtil_LibStubMixin
     local LocalLibStub = o:K().Objects.LibStubMixin:New(o.name, 1.0,
             function(name, newLibInstance)
-                local p = LogCategories.DEFAULT:NewLogger("Namespace::InitLocalLibStub")
+                -- local p = LogCategories.DEFAULT:NewLogger("Namespace::InitLocalLibStub")
                 -- can only use verbose here because global vars are not yet loaded
                 -- p:vv( function() return 'New Lib: %s', newLibInstance.major end)
 
