@@ -9,7 +9,6 @@
     <!-- Global Lib for the Addon   -->
     <Include file='Global\_Global.xml'/>
 
-    <Script file="_Core.lua"/>
     <Include file='Lib\_Lib.xml'/>
 
 </Ui>

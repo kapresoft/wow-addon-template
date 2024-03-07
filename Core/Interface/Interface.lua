@@ -1,79 +1,35 @@
 --[[-----------------------------------------------------------------------------
 BaseLibraryObject
 -------------------------------------------------------------------------------]]
---- @class BaseLibraryObject
-local BaseLibrary = {
-    --- @type table
-    mt = { __tostring = function() end },
-    --- @type Logger
-    logger = {}
-}
+--- @class BaseLibraryObject A base library object class definition.
+--- @field mt table The metatable for objects of this class, including a custom `__tostring` function for debugging or logging purposes.
+--- @field name string Retrieves the module's name. This is an instance method that should be implemented to return the name of the module.
+--- @field major string Retrieves the major version of the module. i.e., <LibName>-1.0
+--- @field minor string Retrieves the minor version of the module. i.e., <LibName>-1.0
 
 --[[-----------------------------------------------------------------------------
-Namespace
+BaseLibraryObject_WithAceEvent
 -------------------------------------------------------------------------------]]
---- @class Namespace : Kapresoft_LibUtil_Mixins
-local Namespace = {
-    --- The namespace name (this is the AddOn Name)
-    --- @type string
-    name = "",
-
-    ---Usage:
-    ---```
-    ---local GC = LibStub(LibName('GlobalConstants'), 1)
-    ---```
-    --- @type fun(moduleName:string, optionalMajorVersion:string)
-    --- @return string The full LibStub library name. Example:  '[AddonName]-GlobalConstants-1.0.1'
-    LibName = {},
-    ---Usage:
-    ---```
-    ---local L = {}
-    ---local mt = { __tostring = ns.ToStringFunction() }
-    ---setmetatable(mt, L)
-    ---```
-    --- @type fun(moduleName:string)
-    ToStringFunction = {},
-
-    --- @type Kapresoft_LibUtil
-    Kapresoft_LibUtil = {},
-    --- @type fun(self:Namespace) : Kapresoft_LibUtil
-    K = {},
-    --- @type fun(self:Namespace) : Kapresoft_LibUtil_Objects
-    KO = {},
-
-    --- @type LocalLibStub
-    LibStub = {},
-
-    --- @type fun(o:any, ...) : void
-    pformat = {},
-
-}
+--- @class BaseLibraryObject_WithAceEvent : AceEvent A base library object that includes AceEvent functionality.
+--- @field mt table The metatable for objects of this class, including a custom `__tostring` function for debugging or logging purposes.
+--- @field name string Retrieves the module's name. This is an instance method that should be implemented to return the name of the module.
+--- @field major string Retrieves the major version of the module. i.e., <LibName>-1.0
+--- @field minor string Retrieves the minor version of the module. i.e., <LibName>-1.0
 
 --[[-----------------------------------------------------------------------------
-GlobalObjects
+AddOn_DB
 -------------------------------------------------------------------------------]]
---- @class GlobalObjects
-local GlobalObjects = {
-    --- @type Kapresoft_LibUtil_AceLibraryObjects
-    AceLibrary = {},
-    --- @type LibStub
-    AceLibStub = {},
+--- @class Profile_DB_ProfileKeys : table<string, string>
 
-    --- @type fun(fmt:string, ...)|fun(val:string)
-    pformat = {},
-    --- @type fun(fmt:string, ...)|fun(val:string)
-    sformat = {},
+--- @class Profile_Config : AceDB_Profile
+--- @field enable boolean This is reserved AceConfig property, don't use.
+--- @field enableSomething boolean An example config field
 
-    --- @type AceDbInitializerMixin
-    AceDbInitializerMixin = {},
-    --- @type Core
-    Core = {},
-    --- @type GlobalConstants
-    GlobalConstants = {},
-    --- @type Logger
-    Logger = {},
-    --- @type MainEventHandler
-    MainEventHandler = {},
-    --- @type OptionsMixin
-    OptionsMixin = {},
-}
+--- @class Profile_Global_Config : AceDB_Global
+--- @field enableSomething string An example global config field
+
+--- @class AddOn_DB : AceDB
+--- @field global Profile_Global_Config
+--- @field profile Profile_Config
+--- @field profileKeys Profile_DB_ProfileKeys
+--- @field profiles table<string, Profile_Config>

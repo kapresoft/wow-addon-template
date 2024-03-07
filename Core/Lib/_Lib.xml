@@ -4,8 +4,9 @@
 
     <Include file="Locales\_Locales.xml"/>
 
-    <Script file="MainEventHandler.lua" />
+    <Script file="MainController.lua" />
     <Script file="AceDbInitializerMixin.lua" />
+    <Script file="DebuggingSettingsGroup.lua" />
     <Script file="OptionsMixin.lua" />
 
 </Ui>

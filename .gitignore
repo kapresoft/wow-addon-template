@@ -49,3 +49,6 @@ luac.out
 /build
 /.release
 /Core/ExtLib
+
+# Ignore Saved Variables folder with symlinks
+/_SV

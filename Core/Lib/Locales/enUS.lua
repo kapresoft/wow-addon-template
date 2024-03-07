@@ -8,3 +8,18 @@ local addonName = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(addonName, "enUS", true);
 
 L["BINDING_NAME_ADT_OPTIONS_DLG"]                  = 'Options Dialog'
+
+L['General']                  = true
+L['General::Desc']            = "General Settings"
+L['General Configuration']    = true
+
+L['Debugging']                = true
+L['Debugging::Desc']          = 'Debug Settings for troubleshooting'
+L['Debugging Configuration']  = true
+L['Log Level']                = true
+L['Log Level::Desc']          = 'Higher log levels generate more logs:\nLog Levels: ERROR(5), WARN(10), INFO(15), DEBUG(20), FINE(25), FINER(30), FINEST(35), TRACE(50)'
+L['Categories']               = true
+L['Debugging::Category::Enable All::Button']           = 'Enable All'
+L['Debugging::Category::Enable All::Button::Desc']     = 'Enables all log categories below. Note that the default category (not shown here) will always be active.'
+L['Debugging::Category::Disable All::Button']          = 'Disable All'
+L['Debugging::Category::Disable All::Button::Desc']    = 'Disables all log categories below. Note that the default category (not shown here) will always be active.'

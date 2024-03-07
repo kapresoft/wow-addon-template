@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="ADT_OPTIONS_DLG" category="AddOns/AddonTemplate" header="ADT_OPTIONS">
+        ADT:OpenConfig();
+    </Binding>
+</Bindings>
