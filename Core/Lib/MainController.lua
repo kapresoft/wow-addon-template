@@ -84,7 +84,7 @@ local function InstanceMethods(o)
 
     --- @private
     function L:OnAddonReady()
-        O.OptionsMixin:New(self.addon):InitOptions()
+        -- add handlers when needed here
     end
 
     --- @private

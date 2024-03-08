@@ -32,7 +32,7 @@ local function MethodsAndProps(o)
         p:f1("Initialized called..")
         self:RegisterSlashCommands()
         O.AceDbInitializerMixin:New(self):InitDb()
-
+        O.OptionsMixin:New(self.addon):InitOptions()
         self:SendMessage(GC.M.OnAfterInitialize, self)
     end
 
