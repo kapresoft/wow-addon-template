@@ -19,9 +19,11 @@ local addon
 --- @type Kapresoft_Base_Namespace
 local ns
 addon, ns = ...
+local kch = ns.Kapresoft_LibUtil.CH
 
 local addonShortName = 'ADT'
-local consoleCommand = "adt"
+local consoleCommand = "addon-template"
+local consoleCommandShort = "adt"
 local globalVarName = "ADT"
 local useShortName = false
 
@@ -39,10 +41,12 @@ Console Colors
 -------------------------------------------------------------------------------]]
 --- @type Kapresoft_LibUtil_ColorDefinition
 local consoleColors = {
-    primary   = 'FF780A',
+    primary   = 'A4A49C',
     secondary = 'fbeb2d',
     tertiary = 'ffffff',
 }
+local command = kch:FormatColor(consoleColors.primary, '/' .. consoleCommand)
+local commandShort = kch:FormatColor(consoleColors.primary, '/' .. consoleCommandShort)
 
 --[[-----------------------------------------------------------------------------
 Support Functions
@@ -76,30 +80,18 @@ GlobalConstants
 --- @class GlobalConstants
 local L = LibStub:NewLibrary(LibName('GlobalConstants'), 1)
 
-local kapresoftColor = '31B8FB'
-local consoleCommandTextFormat = '|cfd2db9fb%s|r'
-local consoleKeyValueTextFormat = '|cfdfbeb2d%s|r: %s'
-local command = sformat("/%s", consoleCommand)
-local commandText = sformat(consoleCommandTextFormat, command)
-local consoleCommandMessageFormat = sformat('Type %s for available commands.', commandText)
-
 --- @param o GlobalConstants
 local function GlobalConstantProperties(o)
     --- @class GlobalAttributes
     local C = {
         VAR_NAME = globalVarName,
         CONSOLE_COMMAND_NAME = consoleCommand,
+        CONSOLE_COMMAND_SHORT = consoleCommandShort,
         CONSOLE_COLORS = consoleColors,
         DB_NAME = dbName,
         CONSOLE_HEADER_FORMAT = '|cfdeab676### %s ###|r',
         CONSOLE_OPTIONS_FORMAT = '  - %-8s|cfdeab676:: %s|r',
-
-        CONSOLE_COMMAND_TEXT_FORMAT = consoleCommandTextFormat,
-        CONSOLE_KEY_VALUE_TEXT_FORMAT = consoleKeyValueTextFormat,
-
         CONSOLE_PLAIN = command,
-        COMMAND      = commandText,
-        HELP_COMMAND = commandText .. ' help',
     }
 
     --- @class EventNames
@@ -177,11 +169,10 @@ local function Methods(o)
     end
 
     function o:GetMessageLoadedText()
-        --- @type Namespace
-        local nx = ns
-        local version = self:GetAddonInfo()
+        local consoleCommandMessageFormat = sformat('Type %s or %s for available commands.',
+                command, commandShort)
         return sformat("%s version %s by %s is loaded. %s",
-                nx.ch:P(nx.name) , version, nx.ch:FormatColor(kapresoftColor, 'kapresoft'),
+                kch:P(addon) , self:GetAddonInfo(), kch:FormatColor(consoleColors.primary, 'kapresoft'),
                 consoleCommandMessageFormat)
     end
 

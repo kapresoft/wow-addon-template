@@ -6,14 +6,14 @@ local sformat, unpack = string.format, unpack
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local ns = adt_ns(...)
+--- @type Namespace
+local ns = select(2, ...)
 local O, GC, M, LibStub = ns.O, ns.GC, ns.M, ns.LibStubAce
 local KO = ns:KO()
 
 local ACE, Table, String = O.AceLibrary, KO.Table, KO.String
 local AceConfigDialog = ACE.AceConfigDialog
-local toStringSorted, pformat = Table.toStringSorted, O.pformat
-local IsBlank, IsAnyOf, IsEmptyTable = String.IsBlank, String.IsAnyOf, Table.isEmpty
+local IsAnyOf, IsEmptyTable = String.IsAnyOf, Table.isEmpty
 
 --- @class AddonTemplate : BaseLibraryObject_WithAceEvent
 local A = LibStub("AceAddon-3.0"):NewAddon(ns.name, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
@@ -31,18 +31,34 @@ local function MethodsAndProps(o)
     function o:OnInitialize()
         p:f1("Initialized called..")
         self:RegisterSlashCommands()
-        self:SendMessage(GC.M.OnAfterInitialize, self)
         O.AceDbInitializerMixin:New(self):InitDb()
+
+        self:SendMessage(GC.M.OnAfterInitialize, self)
     end
 
     function o:RegisterHooks()
         --- TODO: Is this needed?
     end
 
-    function o:SlashCommand_OpenConfig() o:OpenConfig() end
-
     function o:RegisterSlashCommands()
         self:RegisterChatCommand(GC.C.CONSOLE_COMMAND_NAME, "SlashCommands")
+        self:RegisterChatCommand(GC.C.CONSOLE_COMMAND_SHORT, "SlashCommands")
+    end
+
+    function o:SlashCommand_OpenConfig() o:OpenConfig() end
+    function o:SlashCommand_Info_Handler() p:vv(GC:GetAddonInfoFormatted()) end
+    function o:SlashCommand_Help_Handler()
+        p:vv('')
+        local COMMAND_INFO_TEXT = "Prints additional addon info"
+        local COMMAND_CONFIG_TEXT = "Shows the config UI"
+        local COMMAND_HELP_TEXT = "Shows this help"
+        local OPTIONS_LABEL = "options"
+        local USAGE_LABEL = sformat("usage: %s [%s]", GC.C.CONSOLE_PLAIN, OPTIONS_LABEL)
+        p:vv(USAGE_LABEL)
+        p:vv(OPTIONS_LABEL .. ":")
+        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'config', COMMAND_CONFIG_TEXT end)
+        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'info', COMMAND_INFO_TEXT end)
+        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'help', COMMAND_HELP_TEXT end)
     end
 
     --- @param spaceSeparatedArgs string
@@ -62,24 +78,6 @@ local function MethodsAndProps(o)
         end
         -- Otherwise, show help
         self:SlashCommand_Help_Handler()
-    end
-
-    function o:SlashCommand_Info_Handler()
-        p:vv(GC:GetAddonInfoFormatted())
-    end
-
-    function o:SlashCommand_Help_Handler()
-        p:vv('')
-        local COMMAND_INFO_TEXT = "Prints additional addon info"
-        local COMMAND_CONFIG_TEXT = "Shows the config UI"
-        local COMMAND_HELP_TEXT = "Shows this help"
-        local OPTIONS_LABEL = "options"
-        local USAGE_LABEL = sformat("usage: %s [%s]", GC.C.CONSOLE_PLAIN, OPTIONS_LABEL)
-        p:vv(USAGE_LABEL)
-        p:vv(OPTIONS_LABEL .. ":")
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'config', COMMAND_CONFIG_TEXT end)
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'info', COMMAND_INFO_TEXT end)
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'help', COMMAND_HELP_TEXT end)
     end
 
     --- @param enableSound BooleanOptional

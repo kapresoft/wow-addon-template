@@ -42,9 +42,7 @@ end
 --- @param f MainControllerFrame
 local function OnPlayerEnteringWorld(f, event, ...)
     local isLogin, isReload = ...
-
     local addon = f.ctx.addon
-    addon:RegisterHooks()
 
     SendAddonReadyMessage(addon)
 

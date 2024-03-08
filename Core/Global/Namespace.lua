@@ -76,7 +76,6 @@ GlobalObjects
 --- @field pformat fun(fmt:string, ...)|fun(val:string)
 --- @field AceDbInitializerMixin AceDbInitializerMixin
 --- @field GlobalConstants GlobalConstants
---- @field Logger Logger
 --- @field MainController MainController
 --- @field OptionsMixin OptionsMixin
 --- @field DebuggingSettingsGroup DebuggingSettingsGroup
@@ -92,7 +91,6 @@ local M = {
     AceDbInitializerMixin = 'AceDbInitializerMixin',
     DebuggingSettingsGroup = 'DebuggingSettingsGroup',
     GlobalConstants = 'GlobalConstants',
-    Logger = 'Logger',
     MainController = 'MainController',
     OptionsMixin = 'OptionsMixin',
 }
@@ -162,14 +160,6 @@ local function InitLocalLibStub(o)
                 -- local p = LogCategories.DEFAULT:NewLogger("Namespace::InitLocalLibStub")
                 -- can only use verbose here because global vars are not yet loaded
                 -- p:vv( function() return 'New Lib: %s', newLibInstance.major end)
-
-                --- @type Logger
-                local loggerLib = LibStub(o:LibName(o.M.Logger))
-                if loggerLib then
-                    newLibInstance.logger = loggerLib:NewLogger(name)
-                    --newLibInstance.logger:log( 'New Lib: %s', newLibInstance.major)
-                    function newLibInstance:GetLogger() return self.logger end
-                end
                 o:Register(name, newLibInstance)
             end)
     o.LibStubAce = LibStub
@@ -198,9 +188,9 @@ local function NameSpacePropertiesAndMethods(o)
 
     --- @param moduleName string The module name, i.e. Logger
     --- @param optionalMajorVersion number|string
-    --- @return string The complete module name, i.e. 'ActionbarPlus-Logger-1.0'
+    --- @return string The complete module name, i.e. 'ActionbarPlus-MainController-1.0'
     function o:LibName(moduleName, optionalMajorVersion) return GC.LibName(moduleName, optionalMajorVersion) end
-    --- @param moduleName string The module name, i.e. Logger
+    --- @param moduleName string The module name, i.e. MainController
     function o:ToStringFunction(moduleName) return GC.ToStringFunction(moduleName) end
 
     --- @param obj table The library object instance
@@ -220,9 +210,6 @@ local function NameSpacePropertiesAndMethods(o)
 
     --- @return GlobalConstants
     function o:GC() return self.O.GlobalConstants end
-
-    --- @param libName string The library name. Ex: 'GlobalConstants'
-    function o:NewLogger(libName) return self.O.Logger:NewLogger(libName) end
     function o:ToStringNamespaceKeys() return self.pformat(getSortedKeys(self)) end
     function o:ToStringObjectKeys() return self.pformat(getSortedKeys(self.O)) end
 
