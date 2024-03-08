@@ -21,80 +21,21 @@ local S = LibStub:NewLibrary(libName)
 local p = ns:LC().OPTIONS:NewLogger(libName)
 
 --[[-----------------------------------------------------------------------------
-Support Functions
--------------------------------------------------------------------------------]]
---- @see GlobalConstants#M for Message names
----@param optionalVal any|nil
-local function SendMessage(addOnMessage, optionalVal)
-    AceEvent:SendMessage(addOnMessage, libName, optionalVal)
-end
-
---- @param propKey string
---- @param defVal any
-local function _GetGlobalValue(propKey, defVal) return ns:db().global[propKey] or defVal end
-
---- @param propKey string
---- @param val any
-local function _SetGlobalValue(propKey, val) ns:db().global[propKey] = val end
-
---- @param propKey string
---- @param defVal any
-local function _GetValue(propKey, defVal) return ns:db().profile[propKey] or defVal end
-
---- @param propKey string
---- @param val any
-local function _SetValue(propKey, val) ns:db().profile[propKey] = val end
-
---- @param fallback any The fallback value
---- @param key string The key value
-local function ProfileGet(key, fallback)
-    return function(_)
-        return _GetValue(key, fallback)
-    end
-end
---- @param key string The key value
-local function ProfileSet(key, eventMessageToFire)
-    return function(_, v)
-        _SetValue(key, v)
-        if 'string' == type(eventMessageToFire) then
-            SendMessage(eventMessageToFire, v)
-        end
-    end
-end
---- @param fallback any The fallback value
---- @param key string The key value
-local function GlobalGet(key, fallback)
-    return function(_)
-        return _GetGlobalValue(key, fallback)
-    end
-end
---- @param key string The key value
-local function GlobalSet(key, eventMessageToFire)
-    return function(_, v)
-        _SetGlobalValue(key, v)
-        if 'string' == type(eventMessageToFire) then
-            SendMessage(eventMessageToFire, v)
-        end
-    end
-end
-
---[[-----------------------------------------------------------------------------
 Method and Properties
 -------------------------------------------------------------------------------]]
 --- @param o OptionsMixin
 local function MethodsAndProps(o)
     local L = ns:AceLocale()
+    local util = O.OptionsUtil:New(o)
 
     --- Called automatically by CreateAndInitFromMixin(..)
-    --- @param addon AddonTemplate
-    function o:Init(addon)
-        self.addon = addon
-    end
+    --- @param optionsMixin AddonTemplate
+    function o:Init(optionsMixin) self.optionsMixin = optionsMixin end
 
     --- Usage:  local instance = OptionsMixin:New(addon)
-    --- @param addon AddonTemplate
+    --- @param optionsMixin OptionsMixin
     --- @return OptionsMixin
-    function o:New(addon) return ns:K():CreateAndInitFromMixin(o, addon) end
+    function o:New(optionsMixin) return ns:K():CreateAndInitFromMixin(o, optionsMixin) end
 
     function o:CreateOptions()
         local options = {
@@ -114,8 +55,8 @@ local function MethodsAndProps(o)
                             name = "Enable",
                             desc = "Enable Addon",
                             order = 1,
-                            get =  ProfileGet('enableSomething'),
-                            set = ProfileSet('enableSomething')
+                            get =  util:ProfileGet('enableSomething'),
+                            set = util:ProfileSet('enableSomething')
                         }
                     },
                 },

@@ -77,6 +77,7 @@ GlobalObjects
 --- @field AceDbInitializerMixin AceDbInitializerMixin
 --- @field GlobalConstants GlobalConstants
 --- @field MainController MainController
+--- @field OptionsUtil OptionsUtil
 --- @field OptionsMixin OptionsMixin
 --- @field DebuggingSettingsGroup DebuggingSettingsGroup
 --[[-----------------------------------------------------------------------------
@@ -84,16 +85,17 @@ Modules
 -------------------------------------------------------------------------------]]
 --- @class Modules
 local M = {
-    pformat = 'pformat',
-    sformat = 'sformat',
-    AceLibrary = 'AceLibrary',
+    pformat = '',
+    sformat = '',
+    AceLibrary = '',
 
-    AceDbInitializerMixin = 'AceDbInitializerMixin',
-    DebuggingSettingsGroup = 'DebuggingSettingsGroup',
-    GlobalConstants = 'GlobalConstants',
-    MainController = 'MainController',
-    OptionsMixin = 'OptionsMixin',
-}
+    AceDbInitializerMixin = '',
+    DebuggingSettingsGroup = '',
+    GlobalConstants = '',
+    MainController = '',
+    OptionsUtil = '',
+    OptionsMixin = '',
+}; for moduleName in pairs(M) do M[moduleName] = moduleName end
 
 local InitialModuleInstances = {
     -- External Libs --

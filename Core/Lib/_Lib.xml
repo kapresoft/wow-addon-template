@@ -7,6 +7,7 @@
     <Script file="MainController.lua" />
     <Script file="AceDbInitializerMixin.lua" />
     <Script file="DebuggingSettingsGroup.lua" />
+    <Script file="OptionsUtil.lua" />
     <Script file="OptionsMixin.lua" />
 
 </Ui>
