@@ -210,8 +210,6 @@ local function NameSpacePropertiesAndMethods(o)
     --- @return Profile_Config
     function o:profile() return addonDb and addonDb.profile end
 
-    --- @return GlobalConstants
-    function o:GC() return self.O.GlobalConstants end
     function o:ToStringNamespaceKeys() return self.pformat(getSortedKeys(self)) end
     function o:ToStringObjectKeys() return self.pformat(getSortedKeys(self.O)) end
 

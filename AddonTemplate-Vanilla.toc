@@ -26,4 +26,7 @@
 # /dump select(4, GetBuildInfo())
 
 Core\_Core.xml
+#@do-not-package@
+Core\Lib\Developer\_Developer.xml
+#@end-do-not-package@
 Vanilla\_Vanilla.xml

@@ -11,7 +11,6 @@ local O, GC, M, LibStub = ns.O, ns.GC, ns.M, ns.LibStub
 local ACE = O.AceLibrary
 local AceConfig, AceConfigDialog, AceDBOptions = ACE.AceConfig, ACE.AceConfigDialog, ACE.AceDBOptions
 local DebugSettings = O.DebuggingSettingsGroup
-local AceEvent = ns:AceEvent()
 local libName = M.OptionsMixin
 --[[-----------------------------------------------------------------------------
 New Instance
@@ -30,7 +29,10 @@ local function MethodsAndProps(o)
 
     --- Called automatically by CreateAndInitFromMixin(..)
     --- @param optionsMixin AddonTemplate
-    function o:Init(optionsMixin) self.optionsMixin = optionsMixin end
+    function o:Init(optionsMixin)
+        self.optionsMixin = optionsMixin
+        self.util = util
+    end
 
     --- Usage:  local instance = OptionsMixin:New(addon)
     --- @param optionsMixin OptionsMixin
