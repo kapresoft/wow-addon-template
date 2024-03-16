@@ -1,6 +1,8 @@
 # see https://github.com/marketplace/actions/release-drafter
 # For RESOLVED_VERSION
-version-template: '$MAJOR.$MINOR.$PATCH-alpha'
+# Use for initial alpha version
+# version-template: '$MAJOR.$MINOR.$PATCH-alpha'
+version-template: '$MAJOR.$MINOR.$PATCH'
 #
 name-template: '$RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
