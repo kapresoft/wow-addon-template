@@ -1,4 +1,4 @@
-## Interface: 11403
+## Interface: 11501
 ## Version: @project-version@
 ## Title: AddonTemplate|cff1784d1 Classic|r
 ## Notes: {{Addon-Short-Description}}
