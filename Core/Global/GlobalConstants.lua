@@ -94,6 +94,7 @@ local function GlobalConstantProperties(o)
         CONSOLE_HEADER_FORMAT = '|cfdeab676### %s ###|r',
         CONSOLE_OPTIONS_FORMAT = '  - %-8s|cfdeab676:: %s|r',
         CONSOLE_PLAIN = command,
+        CONSOLE_SHORT_COMMAND_PLAIN = commandShort,
     }
 
     --- @class EventNames
