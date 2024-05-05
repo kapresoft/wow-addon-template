@@ -3,31 +3,35 @@ Local Vars
 -------------------------------------------------------------------------------]]
 --- @type Namespace
 local ns = select(2, ...)
-local O, GC, M = ns.O, ns.GC, ns.M
+local M = ns.M
+
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
-local libName = 'Developer'
---- @class Developer
-local L = {}
+local libName = M.API()
+--- @class API
+local L = ns:NewLib(libName)
 local p = ns:CreateDefaultLogger(libName)
-local log = ns:logfn(libName)
 
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o Developer
+---@param o API
 local function PropsAndMethods(o)
 
-    --- /run DEV_ADS:Info()
-    function o:Info()
-        return print(ns.GC():GetAddonInfoFormatted())
-    end
-    -- /run DEV_ADS:dump('ADT')
-    ---@param arg string
-    function o:dump(arg)
-        ns.dump(arg)
+    function o:GetUIScale()
+        -- This returns "1" if UI scaling is enabled, "0" otherwise.
+        local useUiScale = GetCVar('useUiScale')
+        if useUiScale == "1" then
+            local uiScale = GetCVar('uiScale')
+            return tonumber(uiScale)
+        else
+            -- UI scaling is not enabled, so scale is effectively 1.
+            return 1
+        end
     end
 
-end; PropsAndMethods(L); DEV_ADS = L
+    function o:GetCurrentPlayer() return UnitName('player') end
+
+end; PropsAndMethods(L)
 

@@ -8,37 +8,33 @@ Local Vars
 -------------------------------------------------------------------------------]]
 --- @type Namespace
 local ns = select(2, ...)
-local O, GC, M, LibStub = ns.O, ns.GC, ns.M, ns.LibStubAce
-local KO = ns:KO()
+local O, GC, LibStub = ns.O, ns.GC(), ns.LibStubAce()
 
-local ACE, Table, String = O.AceLibrary, KO.Table, KO.String
-local AceConfigDialog = ACE.AceConfigDialog
+local Table, String = ns:Table(), ns:String()
+local AceConfigDialog = ns:AceConfigDialog()
 local IsAnyOf, IsEmptyTable = String.IsAnyOf, Table.isEmpty
 
---- @class AddonTemplate : BaseLibraryObject_WithAceEvent
+--- @class AddonTemplate
 local A = LibStub("AceAddon-3.0"):NewAddon(ns.name, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
-local mt = getmetatable(A) or {}
-mt.__tostring = ns:ToStringFunction()
+local mt = getmetatable(A) or {}; mt.__tostring = ns:ToStringFunction()
 local p = ns:CreateDefaultLogger(ns.name)
 
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
---- @param o AddonTemplate
+--- @param o AddonTemplate | AddonInterface
 local function MethodsAndProps(o)
     O.MainController:Init(o)
 
     function o:OnInitialize()
-        p:f1("Initialized called..")
+        p:f3("OnInitialize() called...")
         self:RegisterSlashCommands()
         O.AceDbInitializerMixin:New(self):InitDb()
         O.OptionsMixin:New(self.addon):InitOptions()
         self:SendMessage(GC.M.OnAfterInitialize, self)
     end
 
-    function o:RegisterHooks()
-        --- TODO: Is this needed?
-    end
+    function o:ns() return ns end
 
     function o:RegisterSlashCommands()
         self:RegisterChatCommand(GC.C.CONSOLE_COMMAND_NAME, "SlashCommands")
@@ -48,17 +44,17 @@ local function MethodsAndProps(o)
     function o:SlashCommand_OpenConfig() o:OpenConfig() end
     function o:SlashCommand_Info_Handler() p:vv(GC:GetAddonInfoFormatted()) end
     function o:SlashCommand_Help_Handler()
-        p:vv('')
+        p:a('')
         local COMMAND_INFO_TEXT = "Prints additional addon info"
         local COMMAND_CONFIG_TEXT = "Shows the config UI"
         local COMMAND_HELP_TEXT = "Shows this help"
         local OPTIONS_LABEL = "options"
         local USAGE_LABEL = sformat("usage: %s [%s]", GC.C.CONSOLE_PLAIN, OPTIONS_LABEL)
-        p:vv(USAGE_LABEL)
-        p:vv(OPTIONS_LABEL .. ":")
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'config', COMMAND_CONFIG_TEXT end)
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'info', COMMAND_INFO_TEXT end)
-        p:vv(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'help', COMMAND_HELP_TEXT end)
+        p:a(USAGE_LABEL)
+        p:a(OPTIONS_LABEL .. ":")
+        p:a(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'config', COMMAND_CONFIG_TEXT end)
+        p:a(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'info', COMMAND_INFO_TEXT end)
+        p:a(function() return GC.C.CONSOLE_OPTIONS_FORMAT, 'help', COMMAND_HELP_TEXT end)
     end
 
     --- @param spaceSeparatedArgs string
@@ -68,15 +64,18 @@ local function MethodsAndProps(o)
             self:SlashCommand_Help_Handler(); return
         end
         if IsAnyOf('config', unpack(args)) or IsAnyOf('conf', unpack(args)) then
-            self:SlashCommand_OpenConfig(); return
+            return self:SlashCommand_OpenConfig()
+        elseif IsAnyOf('info', unpack(args)) then
+            return self:SlashCommand_Info_Handler()
         end
-        if IsAnyOf('info', unpack(args)) then
-            self:SlashCommand_Info_Handler(); return
+        --@do-not-package@
+        if IsAnyOf('dump', unpack(args)) then
+            return ns:K().dump('ADT')
+        elseif IsAnyOf('dumpns', unpack(args)) then
+            return ns:K().dump('ADT_NS')
         end
-        if IsAnyOf('list', unpack(args)) then
-            self:SlashCommand_ListSavedInstances(); return
-        end
-        -- Otherwise, show help
+        --@end-do-not-package@
+
         self:SlashCommand_Help_Handler()
     end
 

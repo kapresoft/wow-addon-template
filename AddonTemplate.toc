@@ -1,10 +1,10 @@
 ## Interface: 100206
 ## Version: @project-version@
-## Title: AddonTemplate|cff1784d1 Retail|r
+## Title: AddonTemplate |cff1784d1Retail|r
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled
-## SavedVariables: ADT_DB, ADT_LOG_LEVEL, ADT_DEBUG_MODE
+## SavedVariables: ADT_DB, ADT_LOG_LEVEL, ADT_DEBUG_MODE, ADT_DEBUG_ENABLED_CATEGORIES
 ## SavedVariablesPerCharacter: ADT_CHARACTER_DB
 ## LoadManagers: AddonLoader
 
@@ -25,8 +25,5 @@
 # To get the Interface/Build Info
 # /dump select(4, GetBuildInfo())
 
+Core\Retail.lua
 Core\_Core.xml
-#@do-not-package@
-Core\Lib\Developer\_Developer.xml
-#@end-do-not-package@
-Retail\_Retail.xml

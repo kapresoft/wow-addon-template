@@ -12,25 +12,25 @@ local date = date
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local LibStub = LibStub
-
+--- @type Namespace
+local ns = select(2, ...)
 --- @type string
-local addon
---- @type Kapresoft_Base_Namespace
-local ns
-addon, ns = ...
+local addon = ns.addon
+
 local kch = ns.Kapresoft_LibUtil.CH
 
-local addonShortName = 'ADT'
-local consoleCommand = "addon-template"
-local consoleCommandShort = "adt"
-local globalVarName = "ADT"
-local useShortName = false
+local addonShortName             = 'ADT'
+local consoleCommand             = "addon-template"
+local consoleCommandShort        = "adt"
+local consoleCommandOptions      = consoleCommand .. '-options'
+local consoleCommandOptionsShort = consoleCommandShort .. '-options'
+local globalVarName              = "ADT"
+local useShortName               = false
 
-local globalVarPrefix = globalVarName .. "_"
-local dbName = globalVarPrefix .. 'DB'
-local logLevel = globalVarPrefix .. 'LOG_LEVEL'
-local debugMode = globalVarPrefix .. 'DEBUG_MODE'
+local globalVarPrefix            = globalVarName .. "_"
+local dbName                     = globalVarPrefix .. 'DB'
+local logLevel                   = globalVarPrefix .. 'LOG_LEVEL'
+local debugMode                  = globalVarPrefix .. 'DEBUG_MODE'
 
 local ADDON_INFO_FMT = '%s|cfdeab676: %s|r'
 local TOSTRING_ADDON_FMT = '|cfdfefefe{{|r|cfdeab676%s|r|cfdfefefe}}|r'
@@ -78,7 +78,7 @@ InitGlobalVars(globalVarPrefix)
 GlobalConstants
 -------------------------------------------------------------------------------]]
 --- @class GlobalConstants
-local L = LibStub:NewLibrary(LibName('GlobalConstants'), 1)
+local L = {}
 
 --- @param o GlobalConstants
 local function GlobalConstantProperties(o)
@@ -87,6 +87,8 @@ local function GlobalConstantProperties(o)
         VAR_NAME = globalVarName,
         CONSOLE_COMMAND_NAME = consoleCommand,
         CONSOLE_COMMAND_SHORT = consoleCommandShort,
+        CONSOLE_COMMAND_OPTIONS = consoleCommandOptions,
+        CONSOLE_COMMAND_OPTIONS_SHORT = consoleCommandOptionsShort,
         CONSOLE_COLORS = consoleColors,
         DB_NAME = dbName,
         CONSOLE_HEADER_FORMAT = '|cfdeab676### %s ###|r',
@@ -96,24 +98,26 @@ local function GlobalConstantProperties(o)
 
     --- @class EventNames
     local E = {
-        OnEnter = 'OnEnter',
-        OnEvent = 'OnEvent',
-        OnLeave = 'OnLeave',
-        OnModifierStateChanged = 'OnModifierStateChanged',
-        OnDragStart = 'OnDragStart',
-        OnDragStop = 'OnDragStop',
-        OnMouseUp = 'OnMouseUp',
-        OnMouseDown = 'OnMouseDown',
-        OnReceiveDrag = 'OnReceiveDrag',
+        OnEnter                = '',
+        OnEvent                = '',
+        OnLeave                = '',
+        OnModifierStateChanged = '',
+        OnDragStart            = '',
+        OnDragStop             = '',
+        OnMouseUp              = '',
+        OnMouseDown            = '',
+        OnReceiveDrag          = '',
+        PLAYER_ENTERING_WORLD  = '',
+    }; for name in pairs(E) do E[name] = name end
 
-        PLAYER_ENTERING_WORLD = 'PLAYER_ENTERING_WORLD',
-    }
     local function newMessage(name) return sformat('%s::' .. name, addonShortName)  end
     --- @class MessageNames
     local M = {
-        OnAfterInitialize = newMessage('OnAfterInitialize'),
-        OnAddonReady = newMessage('OnAddonReady'),
-    }
+        OnAfterInitialize = '',
+        OnAddonReady = '',
+        --- Enable/Disable of the DebugConsole settings
+        OnDebugConsoleToggle = '',
+    }; for name in pairs(M) do M[name] = newMessage(name) end
 
     o.C = C
     o.E = E
@@ -137,15 +141,12 @@ local function Methods(o)
     ---```
     --- @return string, string, string, string, string, string
     function o:GetAddonInfo()
-        local versionText, lastUpdate
-        --@non-debug@
-        versionText = GetAddOnMetadata(ns.name, 'Version')
-        lastUpdate = GetAddOnMetadata(ns.name, 'X-Github-Project-Last-Changed-Date')
-        --@end-non-debug@
-        --@debug@
+        local versionText = GetAddOnMetadata(ns.name, 'Version')
+        local lastUpdate = GetAddOnMetadata(ns.name, 'X-Github-Project-Last-Changed-Date')
+        --@do-not-package@
         versionText = '1.0.x.dev'
-        lastUpdate = date("%m/%d/%y %H:%M:%S")
-        --@end-debug@
+        lastUpdate  = date("%m/%d/%y %H:%M:%S")
+        --@end-do-not-package@
         local wowInterfaceVersion = select(4, GetBuildInfo())
 
         return versionText, GetAddOnMetadata(ns.name, 'X-CurseForge'),
@@ -182,3 +183,4 @@ end
 
 GlobalConstantProperties(L)
 Methods(L)
+ns.GC = function() return L end
