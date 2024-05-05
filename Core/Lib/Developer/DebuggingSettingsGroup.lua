@@ -8,6 +8,7 @@ Local Vars
 -------------------------------------------------------------------------------]]
 --- @type Namespace
 local ns = select(2, ...); local O = ns.O
+local NameDescG = ns.LocaleUtil.NameDescGlobal
 
 --[[-----------------------------------------------------------------------------
 New Instance
@@ -58,7 +59,6 @@ local function PropsAndMethods(o)
             o:SendMessage(ns.GC().M.OnDebugConsoleToggle, libName)
         end
 
-        local NameDescG      = ns.LocaleUtil.NameDescGlobal
         local a              = debugConf.args
 
         a.descDBC            = { name = sformat(" %s ", L['Debug Console']), type = "header", order = seq:next() }
@@ -75,6 +75,7 @@ local function PropsAndMethods(o)
             get = function() return ns:dbg().selectLogConsoleTab == true  end,
             set = function(_, v) ns:dbg().selectLogConsoleTab = (v == true) end,
         }; NameDescG(a.showTabOnLoad, 'Show Tab On Load')
+
         a.maxLines = {
             type = 'range', order = seq:next(), width = 'normal',
             min=10, max=10000, softMin=500, softMax=5000,
@@ -86,6 +87,27 @@ local function PropsAndMethods(o)
             end,
         }; NameDescG(a.maxLines, 'Max Lines')
         a.spacer1c = { type="description", name=sp, width="full", order = seq:next() }
+
+        a.DEVTOOLS_DEPTH_CUTOFF = {
+            type = 'range', order = seq:next(), width = 1.5,
+            min=1, max=50, softMin=2, softMax=10, step=1, bigStep=1,
+            get = function() return DEVTOOLS_DEPTH_CUTOFF or 1  end,
+            set = function(_, v)
+                DEVTOOLS_DEPTH_CUTOFF = v
+            end,
+        }; NameDescG(a.DEVTOOLS_DEPTH_CUTOFF, 'DEVTOOLS_DEPTH_CUTOFF')
+        a.spacer1d = { type="description", name=sp, width=0.2, order = seq:next() }
+
+        a.DEVTOOLS_MAX_ENTRY_CUTOFF = {
+            type = 'range', order = seq:next(), width = 1.5,
+            min=1, max=1000, softMin=10, softMax=200, step=1, bigStep=10,
+            get = function() return DEVTOOLS_MAX_ENTRY_CUTOFF or 1  end,
+            set = function(_, v)
+                DEVTOOLS_MAX_ENTRY_CUTOFF = v
+            end,
+        }; NameDescG(a.DEVTOOLS_MAX_ENTRY_CUTOFF, 'DEVTOOLS_MAX_ENTRY_CUTOFF')
+
+        a.spacer1e = { type="description", name=sp, width="full", order = seq:next() }
     end
 
     --- @param debugConf AceConfigOption
@@ -95,77 +117,61 @@ local function PropsAndMethods(o)
 
         a.desc      = { name = sformat(" %s ", L['Debug Configuration']), type = "header", order = seq:next() }
         a.spacer1a  = { type = "description", name = sp, width = 'full', order = seq:next() }
-        a.log_level = {
-            type  = 'range', order = seq:next(), step  = 5, min   = 0, max   = 50, width = 1.5,
-            name  = L['Log Level'], desc  = L['Log Level::Desc'],
-            get   = function(_) return ns:GetLogLevel() end,
-            set   = function(_, v) ns:SetLogLevel(v) end,
-        }
-        a.spacer1b = { type="description", name=sp, width="full", order = seq:next() }
 
         self:QuickLogLevelButtons(debugConf, seq)
+        self:LogLevelSlider(debugConf, seq)
     end
-
 
     --- @param debugConf AceConfigOption
     --- @param seq Kapresoft_SequenceMixin
     function o:QuickLogLevelButtons(debugConf, seq)
         local a = debugConf.args
-        a.off  = {
-            name  = 'off',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Turn Off Logging",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 0) end,
+        a.off = {
+            name = 'Off', type = "execute", order = seq:next(), width = 0.4, desc = "Turn Off Logging",
+            func = function() a.log_level.set({}, 0) end,
         }
         a.info = {
-            name  = 'info',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Info Log Level (15)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 15) end,
+            name = 'Info', type = "execute", order = seq:next(), width = 0.4, desc = "Info Log Level (15)",
+            func = function() a.log_level.set({}, 15) end,
         }
         a.debugBtn = {
-            name  = 'debug',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Debug Log Level (20)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 20) end,
+            name = 'Debug', type = "execute", order = seq:next(), width = 0.5, desc = "Debug Log Level (20)",
+            func = function() a.log_level.set({}, 20) end,
         }
-        a.fineBtn   = {
-            name  = 'fine',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Fine Log Level (25)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 25) end,
+        a.fineBtn = {
+            name = 'F1', type = "execute", order = seq:next(), width = 0.3, desc = "Fine Log Level (25)",
+            func = function() a.log_level.set({}, 25) end,
         }
         a.finerBtn = {
-            name  = 'finer',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Finer Log Level (30)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 30) end,
+            name = 'F2', type = "execute", order = seq:next(), width = 0.3, desc = "Finer Log Level (30)",
+            func = function() a.log_level.set({}, 30) end,
         }
         a.finestBtn = {
-            name  = 'finest',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Finest Log Level (35)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 35) end,
+            name = 'F3', type = "execute", order = seq:next(), width = 0.3, desc = "Finest Log Level (35)",
+            func = function() a.log_level.set({}, 35) end,
         }
         a.traceBtn = {
-            name  = 'trace',
-            type  = "execute", order = seq:next(), width = 'half',
-            desc  = "Trace Log Level (50)",
-            order = seq:next(),
-            func  = function() a.log_level.set({}, 50) end,
+            name = 'Trace', type = "execute", order = seq:next(), width = 0.4, desc = "Trace Log Level (50)",
+            func = function() a.log_level.set({}, 50) end,
         }
-        a.desc_cat = { name = "Categories", type = "header", order = seq:next() }
-        a.spacer1d = { type = "description", name = sp, width = "full", order = seq:next() }
+        a.qlb_spacer = { type="description", name=sp, width="full", order = seq:next() }
     end
 
-    ---@param debugConf AceConfigOption
-    ---@param seq Kapresoft_SequenceMixin
+    --- @param debugConf AceConfigOption
+    --- @param seq Kapresoft_SequenceMixin
+    function o:LogLevelSlider(debugConf, seq)
+        local a = debugConf.args
+        a.log_level = {
+            type = 'range', order = seq:next(),
+            step = 1, bigStep=5, min = 0, max = 100, softMax=50, width = 1.5,
+            get = function(_) return ns:GetLogLevel() end,
+            set = function(_, v) ns:SetLogLevel(v) end,
+        }; NameDescG(a.log_level, 'Log Level')
+        a.spacer1b = { type="description", name=sp, width="full", order = seq:next() }
+    end
+
+    --- @param debugConf AceConfigOption
+    --- @param seq Kapresoft_SequenceMixin
     function o:AddCategories(debugConf, seq)
         local a = debugConf.args
         local startSeq = seq:get()
