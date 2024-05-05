@@ -2,13 +2,16 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <!-- External Libs -->
-
     <Include file='_ExtLib.xml'/>
 
-    <!-- Global Lib for the Addon   -->
+    <Script file="_Core.lua"/>
+    <!--@do-not-package@-->
+    <Include file="Lib\Developer\_DeveloperComponents.xml"/>
+    <!--@end-do-not-package@-->
     <Include file='Global\_Global.xml'/>
-
     <Include file='Lib\_Lib.xml'/>
-
+    <!--@do-not-package@-->
+    <Include file="Lib\Developer\_Developer.xml"/>
+    <!--@end-do-not-package@-->
+    <Script file="AddonTemplate.lua"/>
 </Ui>

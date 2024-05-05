@@ -3,33 +3,26 @@ Local Vars
 -------------------------------------------------------------------------------]]
 --- @type Namespace
 local ns = select(2, ...)
-local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.LibStub
 
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
-local libName = M.OptionsUtil or 'OptionsUtil'
---- @return OptionsUtil, Kapresoft_CategoryLogger
-local function CreateLib()
-    --- @class OptionsUtil : BaseLibraryObject_WithAceEvent
-    --- @field optionsMixin OptionsMixin
-    local newLib = LibStub:NewLibrary(libName); if not newLib then return nil end
-    ns:AceEvent(newLib)
-    local logger = ns:CreateDefaultLogger(libName)
-    return newLib, logger
-end; local L, p = CreateLib(); if not L then return end
-p:v(function() return "Loaded: %s", L.name or tostring(L) end)
+local libName = ns.M.OptionsUtil()
+--- @class OptionsUtil : BaseLibraryObject_WithAceEvent
+--- @field optionsMixin OptionsMixin
+local L = ns:NewLibWithEvent(libName)
+local p = ns:CreateDefaultLogger(libName)
 
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
---- @param o OptionsUtil
+--- @param o OptionsUtil | AceEventInterface
 local function PropsAndMethods(o)
 
     --- @public
     --- @param optionsMixin OptionsMixin
     --- @return OptionsUtil
-    function o:New(optionsMixin) return ns:K():CreateAndInitFromMixin(o, optionsMixin) end
+    function o:New(optionsMixin) return ns:K():CreateAndInitFromMixinWithDefExc(o, optionsMixin) end
 
     --- Called Automatically by CreateAndInitFromMixin
     --- @private

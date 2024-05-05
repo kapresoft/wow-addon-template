@@ -1,6 +1,6 @@
-## Interface: 11502
+## Interface: 40400
 ## Version: @project-version@
-## Title: AddonTemplate |cff1784d1Classic Era|r
+## Title: AddonTemplate |cff1784d1Cataclysm|r
 ## Notes: {{Addon-Short-Description}}
 ## Author: kapresoft@gmail.com
 ## DefaultState: enabled
@@ -13,8 +13,8 @@
 ## X-Category: Combat
 ## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
 
-## X-Github-Repo: {{GithubProjectUrl}}
-## X-Github-Issues: {{GithubProjectUrl}}/issues
+## X-Github-Repo: https://github.com/kapresoft/wow-addon-template
+## X-Github-Issues: https://github.com/kapresoft/wow-addon-template
 ## X-CurseForge: https://www.curseforge.com/wow/addons/{{curse-project-name}}
 ## X-Curse-Project-ID: {{curse-project-id}}
 ## X-Github-Project-Author: @project-author@
@@ -25,5 +25,7 @@
 # To get the Interface/Build Info
 # /dump select(4, GetBuildInfo())
 
-Core\Vanilla.lua
+Core\Cata.lua
 Core\_Core.xml
+
+

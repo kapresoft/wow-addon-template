@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for ActionbarPlus Add-On
+about: Suggest an idea for the Add-On
 title: ''
 labels: ''
 assignees: ''

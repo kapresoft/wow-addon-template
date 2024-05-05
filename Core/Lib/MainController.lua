@@ -1,9 +1,4 @@
 --[[-----------------------------------------------------------------------------
-Lua Vars
--------------------------------------------------------------------------------]]
-local sformat = string.format
-
---[[-----------------------------------------------------------------------------
 Blizzard Vars
 -------------------------------------------------------------------------------]]
 local CreateFrame, FrameUtil = CreateFrame, FrameUtil
@@ -12,54 +7,50 @@ local RegisterFrameForEvents, RegisterFrameForUnitEvents = FrameUtil.RegisterFra
 --[[-----------------------------------------------------------------------------
 Local Vars
 -------------------------------------------------------------------------------]]
-local ns = adt_ns(...)
-local O, GC, M = ns.O, ns.GC, ns.M
-local Ace, LibStub = ns.KO().AceLibrary.O, ns.LibStub
+--- @type Namespace
+local ns = select(2, ...)
+local O, GC, M = ns.O, ns.GC(), ns.M
 local E, MSG = GC.E, GC.M
 
 --[[-----------------------------------------------------------------------------
 New Instance
 -------------------------------------------------------------------------------]]
+local libName = M.MainController()
 --- @class MainController : BaseLibraryObject_WithAceEvent
-local L = LibStub:NewLibrary(M.MainController, 1); if not L then return end
-Ace.AceEvent:Embed(L)
-local p = ns:LC().DEFAULT:NewLogger(M.MainController)
-local pp = ns:CreateDefaultLogger(ns.name)
+local L = ns:NewLibWithEvent(libName)
+local p = ns:LC().DEFAULT:NewLogger(libName)
+local pp = ns:CreateDefaultLogger(ns.addon)
 
 --[[-----------------------------------------------------------------------------
 Support Functions
 -------------------------------------------------------------------------------]]
 
----Other modules can listen to message
----```Usage:
----AceEvent:RegisterMessage(MSG.OnAddonReady, function(evt, ...) end
----```
+--- Other modules can listen to message
+--- ```Usage:
+--- AceEvent:RegisterMessage(MSG.OnAddonReady, function(evt, ...) end
+--- ```
 --- @param addon AddonTemplate
-local function SendAddonReadyMessage(addon)
-    L:SendMessage(MSG.OnAddonReady, addon)
-end
+local function SendAddonReadyMessage(addon) L:SendMessage(MSG.OnAddonReady, addon) end
 
 --- @param f MainControllerFrame
+---@param event EventName
 local function OnPlayerEnteringWorld(f, event, ...)
     local isLogin, isReload = ...
     local addon = f.ctx.addon
 
     SendAddonReadyMessage(addon)
-
-    --@debug@
+    --@do-not-package@
     isLogin = true
-    p:d(function() return "IsLogin=%s IsReload=%s", tostring(isLogin), tostring(isReload) end)
-    --@end-debug@
-
+    --@end-do-not-package@
     if not isLogin then return end
 
-    pp:vv(GC:GetMessageLoadedText())
+    pp:a(GC:GetMessageLoadedText())
 end
 
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
---- @param o MainController
+--- @param o MainController | AceEventInterface
 local function InstanceMethods(o)
 
     ---Init Method: Called by Mixin
@@ -77,7 +68,7 @@ local function InstanceMethods(o)
 
     --- @private
     function o:RegisterEvents()
-        p:f1("RegisterEvents called...")
+        p:f3('RegisterEvents() called...')
         self:RegisterOnPlayerEnteringWorld()
         self:RegisterMessage(MSG.OnAddonReady, function() self:OnAddonReady()  end)
     end

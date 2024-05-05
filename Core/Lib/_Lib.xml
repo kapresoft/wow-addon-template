@@ -3,10 +3,9 @@
 ..\FrameXML\UI.xsd">
 
     <Include file="Locales\_Locales.xml"/>
-
+    <Include file="API\_API.xml"/>
     <Script file="MainController.lua" />
     <Script file="AceDbInitializerMixin.lua" />
-    <Script file="DebuggingSettingsGroup.lua" />
     <Script file="OptionsUtil.lua" />
     <Script file="OptionsMixin.lua" />
 
