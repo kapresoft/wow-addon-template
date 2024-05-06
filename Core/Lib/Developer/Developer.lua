@@ -11,7 +11,6 @@ local libName = 'Developer'
 --- @class Developer
 local L = {}
 local p = ns:CreateDefaultLogger(libName)
-local log = ns:logfn(libName)
 
 --[[-----------------------------------------------------------------------------
 Methods
