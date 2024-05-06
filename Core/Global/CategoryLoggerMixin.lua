@@ -46,7 +46,7 @@ local function PropsAndMethods(o)
 
     --- @param namesp Namespace
     --- @param logCategories LogCategories
-    function o:Mixin(namesp, logCategories)
+    function o:Configure(namesp, logCategories)
         assert(logCategories, 'CategoryLoggerMixin:Mixin(): LogCategories is required.')
         namesp.LogCategories = function() return logCategories end
         local CategoryLogger = namesp:KO().CategoryMixin:New()
@@ -59,7 +59,7 @@ local function PropsAndMethods(o)
         })
         namesp.CategoryLogger = function() return CategoryLogger end
         namesp:K():Mixin(namesp, o)
-        namesp.Mixin = nil
+        namesp.Configure = nil
     end
 
     --- @return number
