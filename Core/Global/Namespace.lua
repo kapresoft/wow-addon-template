@@ -239,7 +239,7 @@ local function CreateNamespace(...)
     --- @deprecated Deprecated. Replace with ns.addon
     ns.name = addon
 
-    ns.CategoryLoggerMixin:Mixin(ns, LogCategories)
+    ns.CategoryLoggerMixin:Configure(ns, LogCategories)
 
     NameSpacePropertiesAndMethods(ns)
 
