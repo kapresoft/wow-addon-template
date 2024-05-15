@@ -77,13 +77,13 @@ jobs:
           args: -r ${releaseDir} -p ${curseForgeProjectId} ${packagerOptions}
       ## ------------------------------------------------ ##
       - name: "Verify Build Artifact Exists: ${{ env.buildArtifact }}"
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "${{ env.buildArtifact }}"
           fail: true
       ## ------------------------------------------------ ##
       - name: "Verify: Supporting Scripts Exists"
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "./dev/md5sum.sh"
           fail: true
