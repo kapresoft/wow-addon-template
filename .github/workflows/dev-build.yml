@@ -22,7 +22,7 @@ jobs:
       ## ------------------------------------------------ ##
       ## See: https://github.com/actions/github-script
       - name: "Set Env Variable: GITHUB_SHA_SHORT"
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const sha = context.sha.substring(0, 7)
@@ -50,10 +50,10 @@ jobs:
           echo "$(env|sort)"
       ## ------------------------------------------------ ##
       ## Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       ## ------------------------------------------------ ##
       - name: "Verify Package Meta File Exists: ./pkgmeta.yaml"
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "pkgmeta.yaml"
           fail: true
@@ -64,7 +64,7 @@ jobs:
           args: -du -r ${releaseDir} -p ${curseForgeProjectId}
       ## ------------------------------------------------ ##
       - name: "Verify Build Artifact Exists: ${{ env.buildArtifact }}"
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "${{ env.buildArtifact }}"
           fail: true
