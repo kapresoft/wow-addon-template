@@ -48,7 +48,6 @@ local function MethodsAndProps(o)
                     desc  = L['General::Desc'],
                     order = 2,
                     args  = {
-                        desc   = { name = " " .. L['General Configuration'] .. " ", type = "header", order = 0 },
                         enable = {
                             type  = "toggle",
                             name  = "Enable",

@@ -3,23 +3,32 @@ package-as: AddonTemplate
 license-output: LICENSE
 enable-nolib-creation: no
 #enable-toc-creation: yes
+
 manual-changelog:
   filename: CHANGELOG.txt
   markup-type: markdown
 
+embedded-libraries:
+  - LibStub
+  - Ace3
+
+tools-used:
+  - DevSuite
+  - Addon-Usage
+  - Bugsack
+  - Bug-Grabber
+
 # Declaring the following dependencies will make curse forge app install these 3rd-party
 # libraries. Need to figure out which is best (embedded or external).
 # in code, check for each of library global var before using
+#
+#required-dependencies:
+# OR
 #optional-dependencies:
 #  - ace3
 #  - libstub
 #  - callbackhandler
 #  - libsharedmedia-3-0
-
-# Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
-#ignore:
-#  - .git
-#  - .idea
 
 # Resources:
 #  - https://github.com/wowace-mirror
