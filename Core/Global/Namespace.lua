@@ -94,33 +94,13 @@ local M = {
     API = {},
     --- @type DebuggingSettingsGroup
     DebuggingSettingsGroup = {},
-    --- @type DebugConsole
-    DebugConsole = {},
     --- @type MainController
     MainController = {},
     --- @type OptionsUtil
     OptionsUtil = {},
     --- @type OptionsMixin
     OptionsMixin = {},
-};
-
---[[--- @param name Name
---- @param module Module
-for name, module in pairs(M) do
-    module._name = name
-    module.mt = {
-        __tostring = function() return "Module:" .. name  end,
-        __call = function() return name  end
-    }
-    setmetatable(module, module.mt)
-end]]
-
---[[
---- @param name Name
-for name in pairs(M) do M[name] = KO.LibModule:New(name) end
-]]
-
-KO.LibModule.EnrichModules(M)
+}; KO.LibModule.EnrichModules(M)
 
 ---@param o __Namespace | Namespace
 local function InitLocalLibStub(o)
@@ -226,7 +206,6 @@ local function CreateNamespace(...)
     --- @field GC fun() : GlobalConstants
     --- @field LogCategories LogCategories
     --- @field CategoryLoggerMixin CategoryLoggerMixin
-    --- @field CategoryLogger fun() : Kapresoft_CategoryMixin
     --- @field LocaleUtil LocaleUtil
     local ns; addon, ns = ...
 
@@ -255,7 +234,7 @@ ADT_NS = CreateNamespace(...)
 --@do-not-package@
 if kns.debug:IsDeveloper() then
     local p = ADT_NS:CreateDefaultLogger('Ns')
-    p:vv(function() return '%s Namespace is: %s', kns.addon,
+    p:a(function() return '%s Namespace is: %s', kns.addon,
             c1(kns.sformat('ADT_NS (%s)', type(ADT_NS))) end)
 end
 --@end-do-not-package@

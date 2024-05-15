@@ -39,6 +39,12 @@ K:MixinWithDefExc(ns, K.Objects.CoreNamespaceMixin, K.Objects.NamespaceAceLibrar
 ns.name = ns.addon
 
 --[[-----------------------------------------------------------------------------
+Namespace Methods
+-------------------------------------------------------------------------------]]
+--- @return boolean
+function ns:IsDev() return ns.debug:IsDeveloper() end
+
+--[[-----------------------------------------------------------------------------
 Type: DebugSettingsFlag
 -------------------------------------------------------------------------------]]
 --- @class DebugSettingsFlag

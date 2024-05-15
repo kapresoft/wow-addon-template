@@ -41,7 +41,6 @@ local function PropsAndMethods(o)
             args = {},
         }
 
-        self:DebugConsoleSection(debugConf, seq)
         self:DebugLevelSection(debugConf, seq)
         self:AddCategories(debugConf, seq)
         return debugConf;
@@ -49,75 +48,7 @@ local function PropsAndMethods(o)
 
     --- @param debugConf AceConfigOption
     --- @param seq Kapresoft_SequenceMixin
-    function o:DebugConsoleSection(debugConf, seq)
-
-        local function DebugConsoleGetFn() return ns:dbg().enableLogConsole == true end
-
-        local function DebugConsoleSetFn(_, v)
-            local val = (v == true)
-            ns:dbg().enableLogConsole = val
-            o:SendMessage(ns.GC().M.OnDebugConsoleToggle, libName)
-        end
-
-        local a              = debugConf.args
-
-        a.descDBC            = { name = sformat(" %s ", L['Debug Console']), type = "header", order = seq:next() }
-        a.spacer1aDBC        = { type = "description", name = sp, width = 'full', order = seq:next() }
-
-        -- L['Enable Debug Console::Desc']
-        a.enableDebugConsole = {
-            type = 'toggle', order = seq:next(), width = 'normal',
-            get  = DebugConsoleGetFn,
-            set  = DebugConsoleSetFn,
-        }; NameDescG(a.enableDebugConsole, 'Enable Debug Console')
-        a.showTabOnLoad = {
-            type = 'toggle', order = seq:next(), width = 'normal',
-            get = function() return ns:dbg().selectLogConsoleTab == true  end,
-            set = function(_, v) ns:dbg().selectLogConsoleTab = (v == true) end,
-        }; NameDescG(a.showTabOnLoad, 'Show Tab On Load')
-
-        a.maxLines = {
-            type = 'range', order = seq:next(), width = 'normal',
-            min=10, max=10000, softMin=500, softMax=5000,
-            step=1, bigStep=100,
-            get = function() return ns:dbg().maxLogConsoleLines  end,
-            set = function(_, v)
-                ns:dbg().maxLogConsoleLines = v
-                ns:ChatFrame():SetMaxLines(v)
-            end,
-        }; NameDescG(a.maxLines, 'Max Lines')
-        a.spacer1c = { type="description", name=sp, width="full", order = seq:next() }
-
-        a.DEVTOOLS_DEPTH_CUTOFF = {
-            type = 'range', order = seq:next(), width = 1.5,
-            min=1, max=50, softMin=2, softMax=10, step=1, bigStep=1,
-            get = function() return DEVTOOLS_DEPTH_CUTOFF or 1  end,
-            set = function(_, v)
-                DEVTOOLS_DEPTH_CUTOFF = v
-            end,
-        }; NameDescG(a.DEVTOOLS_DEPTH_CUTOFF, 'DEVTOOLS_DEPTH_CUTOFF')
-        a.spacer1d = { type="description", name=sp, width=0.2, order = seq:next() }
-
-        a.DEVTOOLS_MAX_ENTRY_CUTOFF = {
-            type = 'range', order = seq:next(), width = 1.5,
-            min=1, max=1000, softMin=10, softMax=200, step=1, bigStep=10,
-            get = function() return DEVTOOLS_MAX_ENTRY_CUTOFF or 1  end,
-            set = function(_, v)
-                DEVTOOLS_MAX_ENTRY_CUTOFF = v
-            end,
-        }; NameDescG(a.DEVTOOLS_MAX_ENTRY_CUTOFF, 'DEVTOOLS_MAX_ENTRY_CUTOFF')
-
-        a.spacer1e = { type="description", name=sp, width="full", order = seq:next() }
-    end
-
-    --- @param debugConf AceConfigOption
-    --- @param seq Kapresoft_SequenceMixin
     function o:DebugLevelSection(debugConf, seq)
-        local a = debugConf.args
-
-        a.desc      = { name = sformat(" %s ", L['Debug Configuration']), type = "header", order = seq:next() }
-        a.spacer1a  = { type = "description", name = sp, width = 'full', order = seq:next() }
-
         self:QuickLogLevelButtons(debugConf, seq)
         self:LogLevelSlider(debugConf, seq)
     end

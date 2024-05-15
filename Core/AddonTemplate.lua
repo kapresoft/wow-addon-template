@@ -133,3 +133,11 @@ do
     end
 
 end; ADT = A
+
+--@do-not-package@
+if ns:IsDev() then
+    local addonVar = 'ADT'
+    local varInfo = sformat('%s (%s)', addonVar, type(_G[addonVar]))
+    p:a(function() return '%s var: %s', ns.addon, c1(varInfo) end)
+end
+--@end-do-not-package@

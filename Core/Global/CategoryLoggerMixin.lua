@@ -41,10 +41,9 @@ end
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
---- @param o CategoryLoggerMixin
-local function PropsAndMethods(o)
+local o = L; do
 
-    --- @param namesp Namespace
+    --- @param namesp __Namespace
     --- @param logCategories LogCategories
     function o:Configure(namesp, logCategories)
         assert(logCategories, 'CategoryLoggerMixin:Mixin(): LogCategories is required.')
@@ -84,5 +83,6 @@ local function PropsAndMethods(o)
     function o:LC() return self.LogCategories() end
     function o:CreateDefaultLogger(moduleName) return self:LC().DEFAULT:NewLogger(moduleName) end
 
-end; PropsAndMethods(L)
-ns.CategoryLoggerMixin = L
+    ns.CategoryLoggerMixin = o
+
+end
